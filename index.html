@@ -371,6 +371,15 @@ document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("clic
 
 load(false);
 setInterval(()=>load(false),60000);
+
+// recarrega sozinha quando sai uma versão nova da página
+let pageSig=null;
+async function pageVersion(){
+  try{const r=await fetch("index.html?v="+Date.now(),{cache:"no-store"});if(!r.ok)return null;
+    const t=await r.text();let h=0;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;return h}catch(_){return null}
+}
+(async()=>{pageSig=await pageVersion()})();
+setInterval(async()=>{const v=await pageVersion();if(v!==null&&pageSig!==null&&v!==pageSig&&!sel)location.reload()},120000);
 </script>
 </body>
 </html>
