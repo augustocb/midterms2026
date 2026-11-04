@@ -126,10 +126,10 @@ tbody tr:hover td{background:var(--hover)}
 
   <div class="map">
     <div class="legend">
-      <span><b style="background:var(--d)"></b>Democrata projetado</span>
-      <span><b style="background:var(--r)"></b>Republicano projetado</span>
-      <span><b style="background:var(--d-soft)"></b>Democrata favorito</span>
-      <span><b style="background:var(--r-soft)"></b>Republicano favorito</span>
+      <span><b style="background:var(--d)"></b>DEM projetado</span>
+      <span><b style="background:var(--r)"></b>REP projetado</span>
+      <span><b style="background:var(--d-soft)"></b>DEM favorito</span>
+      <span><b style="background:var(--r-soft)"></b>REP favorito</span>
       <span><b style="background:var(--none)"></b>Sem eleição</span>
     </div>
     <div class="key"><div class="mini"><span>S</span><span>G</span></div>✓ = projetado · número = % de chance do favorito</div>
@@ -167,7 +167,7 @@ AZ:[5,2],NM:[5,3],KS:[5,4],AR:[5,5],TN:[5,6],NC:[5,7],SC:[5,8],
 OK:[6,4],LA:[6,5],MS:[6,6],AL:[6,7],GA:[6,8],
 HI:[7,0],TX:[7,4],FL:[7,9]};
 const RAW="https://raw.githubusercontent.com/augustocb/midterms2026/main/data.json";
-const PARTY={D:"Democrata",R:"Republicano"};
+const PARTY={D:"DEM",R:"REP"};
 let DATA=null,filter="all",sel=null,lastUpdated=null;
 
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
@@ -184,7 +184,7 @@ function barKey(rows){
   const k=el("div","legend bk");
   for(const [dc,rc,t,d,r] of rows){
     const s=el("span"),l=el("span","sw"),b=el("b");b.style.background=`linear-gradient(90deg,${dc} 50%,${rc} 50%)`;
-    l.append(b,document.createTextNode(t));s.append(l,el("i",null,d+" D · "+r+" R"));k.append(s);
+    l.append(b,document.createTextNode(t));s.append(l,el("i",null,d+" DEM · "+r+" REP"));k.append(s);
   }
   return k;
 }
@@ -193,23 +193,23 @@ function summary(kind,cardsId,barId){
   const cards=document.getElementById(cardsId);cards.replaceChildren();
   const mk=(k,v,s,cl)=>{const d=el("div","card"+(cl?" "+cl:""));d.append(el("div","k",k));const vv=el("div","v");if(v instanceof Node)vv.append(v);else vv.textContent=String(v);if(s)vv.append(el("small",null," "+s));d.append(vv);return d};
   const fin=document.createDocumentFragment();fin.append(el("span","nd",String(c.D+f.D)),el("span","dash","–"),el("span","nr",String(c.R+f.R)));
-  cards.append(mk("Projetados D",c.D,null,"cd"),mk("Projetados R",c.R,null,"cr"),mk("Em aberto",open,"de "+total),mk("Previsão final",fin));
+  cards.append(mk("Projetados DEM",c.D,null,"cd"),mk("Projetados REP",c.R,null,"cr"),mk("Em aberto",open,"de "+total),mk("Previsão final",fin));
   const bar=document.getElementById(barId);bar.replaceChildren();
   const seg=(w,col,tip,n)=>{const s=el("span");s.style.width=w+"%";s.style.background=col;if(tip){s.dataset.tip=tip;s.dataset.n=n}return s};
   const lbl=el("div","lbl"),tr=el("div","track");
   const isS=kind==="senate";
   const h=(isS?DATA.senateHoldover:DATA.governorHoldover)||{D:0,R:0};
   const N=total+h.D+h.R,pc=n=>n/N*100,D=h.D+c.D,R=h.R+c.R;
-  lbl.append(side("Democratas",D,f.D,"l"),el("span","ctr",isS?"51 para maioria":"26 para maioria"),side("Republicanos",R,f.R,"r"));
+  lbl.append(side("DEM",D,f.D,"l"),el("span","ctr",isS?"51 para maioria":"26 para maioria"),side("REP",R,f.R,"r"));
   const HL="Já eleitos (fora de disputa)",rest=N-D-R-f.D-f.R;
-  tr.append(seg(pc(h.D),"var(--d-dark)","Democratas · "+HL,h.D),seg(pc(c.D),"var(--d)","Democratas · Projetados hoje",c.D),seg(pc(f.D),"var(--d-soft)","Democratas · Favoritos",f.D),
+  tr.append(seg(pc(h.D),"var(--d-dark)","DEM · "+HL,h.D),seg(pc(c.D),"var(--d)","DEM · Projetados hoje",c.D),seg(pc(f.D),"var(--d-soft)","DEM · Favoritos",f.D),
     seg(pc(rest),"var(--none)","Sem favorito definido",rest),
-    seg(pc(f.R),"var(--r-soft)","Republicanos · Favoritos",f.R),seg(pc(c.R),"var(--r)","Republicanos · Projetados hoje",c.R),seg(pc(h.R),"var(--r-dark)","Republicanos · "+HL,h.R),el("div","mid"));
+    seg(pc(f.R),"var(--r-soft)","REP · Favoritos",f.R),seg(pc(c.R),"var(--r)","REP · Projetados hoje",c.R),seg(pc(h.R),"var(--r-dark)","REP · "+HL,h.R),el("div","mid"));
   bar.append(lbl,tr,barKey([
     ["var(--d-dark)","var(--r-dark)","Já eleitos (fora de disputa)",h.D,h.R],
     ["var(--d)","var(--r)","Projetados hoje",c.D,c.R],
     ["var(--d-soft)","var(--r-soft)","Favoritos (ainda em aberto)",f.D,f.R]]));
-  if(isS)bar.append(el("div","legend","Independentes que votam com os democratas contam como D."));
+  if(isS)bar.append(el("div","legend","Independentes alinhados ao DEM contam como DEM."));
 }
 
 function render(){
@@ -286,7 +286,7 @@ function describe(r,compact){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
   const nm=el("span","nm");
   if(compact&&!r.called){nm.append(el("span","dot "+p),el("span","pct",r.chance));w.append(nm);return w}
-  nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+p+")":PARTY[p]));
+  nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+PARTY[p]+")":PARTY[p]));
   w.append(nm,r.called?el("span","tag ok","✓ Projetado · "+r.calledBy):el("span","tag","Favorito · "+r.chance));
   return w;
 }
