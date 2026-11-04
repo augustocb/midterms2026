@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T03:31:38Z",
- "statusNote": "Projeções conferidas até 22:29 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T03:46:14Z",
+ "statusNote": "Projeções conferidas até 22:44 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -501,8 +501,11 @@
   "NM": {
    "party": "D",
    "chance": "87%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Deb Haaland",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "OH": {
    "party": "D",
@@ -600,5 +603,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T03:31:38Z"
+ "checked": "2026-11-04T03:46:14Z"
 }
