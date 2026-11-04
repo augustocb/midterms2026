@@ -171,6 +171,11 @@ def main():
     if not key:
         print("::warning::Segredo GEMINI_API_KEY não configurado; nada a fazer.")
         return 0
+    sys.path.insert(0, os.path.dirname(__file__))
+    import interval
+    if not interval.active(dt.datetime.now(dt.timezone.utc)):
+        print("Fora do horário da agenda (pausa); nada a fazer.")
+        return 0
     data = json.load(open(DATA, encoding="utf-8"))
     if all(r.get("called") for o in ("senate", "governor") for r in data[o].values()):
         print("Todas as disputas já projetadas.")

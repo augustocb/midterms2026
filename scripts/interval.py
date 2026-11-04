@@ -10,16 +10,26 @@ import sys
 UTC = dt.timezone.utc
 # (até quando, intervalo em minutos)
 AGENDA = [
-    (dt.datetime(2026, 11, 4, 6, 0, tzinfo=UTC), 10),   # até 03h de Brasília
-    (dt.datetime(2026, 11, 4, 9, 0, tzinfo=UTC), 15),   # até 06h de Brasília
-    (dt.datetime(2026, 11, 4, 15, 0, tzinfo=UTC), 10),  # até 12h de Brasília
-    (dt.datetime(2026, 11, 4, 23, 0, tzinfo=UTC), 30),  # até 20h de Brasília
+    (dt.datetime(2026, 11, 4, 6, 0, tzinfo=UTC), 10),    # até 03h de Brasília
+    (dt.datetime(2026, 11, 4, 11, 0, tzinfo=UTC), None), # pausa até 08h de Brasília
+    (dt.datetime(2026, 11, 4, 15, 0, tzinfo=UTC), 10),   # até 12h de Brasília
+    (dt.datetime(2026, 11, 4, 23, 0, tzinfo=UTC), 30),   # até 20h de Brasília
 ]
+
+
+def active(now):
+    """True se agora está num trecho com atualizações (fora de pausa)."""
+    for end, minutes in AGENDA:
+        if now < end:
+            return minutes is not None
+    return False
 
 
 def next_run(now):
     for end, minutes in AGENDA:
         if now < end:
+            if minutes is None:
+                return end
             step = minutes * 60
             midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
             elapsed = (now - midnight).total_seconds()
