@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T05:51:16Z",
- "statusNote": "Projeções conferidas até 01:00 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T06:15:54Z",
+ "statusNote": "Projeções conferidas até 01:15 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -199,8 +199,11 @@
   "ME": {
    "party": "D",
    "chance": "65%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Troy Jackson",
+   "winnerParty": "D",
+   "calledBy": "CBS"
   },
   "MA": {
    "party": "D",
@@ -693,5 +696,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T06:01:02Z"
+ "checked": "2026-11-04T06:15:54Z"
 }
