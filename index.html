@@ -57,7 +57,18 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .pop .row{margin:4px 0}
 .pop .lb{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
 .pop .x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px}
+table{table-layout:fixed}
+th:first-child,td:first-child{width:27%}
+td{overflow-wrap:break-word}
+td:first-child{hyphens:auto;-webkit-hyphens:auto}
+.nm{display:inline-flex;align-items:baseline;gap:5px}
+.nm .dot{flex:none;transform:translateY(-1px)}
 @media (max-width:600px){
+  th{padding:8px 6px;font-size:10.5px}
+  td{padding:7px 6px;font-size:12px;vertical-align:top}
+  td .pill{gap:3px 4px}
+  td .tag{white-space:normal;font-size:10.5px;padding:1px 6px}
+  td .dot{width:8px;height:8px}
   .wrap{padding:16px 10px 40px}
   .map{padding:10px 6px}
   .grid{gap:2px}
@@ -224,9 +235,8 @@ window.addEventListener("resize",()=>{if(sel)showPop()});
 
 function describe(r){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
-  w.append(el("span","dot "+p));
-  if(r.called){w.append(el("span",null,r.winner+" ("+p+")"),el("span","tag ok","✓ Projetado · "+r.calledBy))}
-  else{w.append(el("span",null,PARTY[p]),el("span","tag","Favorito · "+r.chance))}
+  const nm=el("span","nm");nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+p+")":PARTY[p]));
+  w.append(nm,r.called?el("span","tag ok","✓ Projetado · "+r.calledBy):el("span","tag","Favorito · "+r.chance));
   return w;
 }
 
