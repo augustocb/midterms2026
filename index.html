@@ -91,6 +91,8 @@ th:first-child,td:first-child{width:27%}
 td{overflow-wrap:break-word}
 td:first-child{hyphens:auto;-webkit-hyphens:auto}
 .nm{display:inline-flex;align-items:baseline;gap:5px}
+.favline{flex-basis:100%;display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+.favline .dot{width:7px;height:7px}
 .nm .pct{font-weight:500;color:var(--muted)}
 .nm .dot{flex:none;transform:translateY(-1px)}
 @media (max-width:600px){
@@ -309,6 +311,7 @@ function describe(r,compact){
   nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+PARTY[p]+")":PARTY[p]));
   w.append(nm,r.called?el("span","tag ok","✓ Projetado · "+r.calledBy):el("span","tag","Favorito · "+r.chance));
   if(isFlip(r)){const t=el("span","tag flip","Flip");t.title="Cadeira era "+PARTY[r.holder];w.append(t)}
+  if(isUpset(r)){const f=el("span","favline");f.append(el("span","dot "+r.party),document.createTextNode("Favorito era "+PARTY[r.party]+" · "+r.chance));w.append(f)}
   return w;
 }
 
