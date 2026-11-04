@@ -84,7 +84,9 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .key .mini span+span{border-top:1px solid var(--line)}
 .pop{position:absolute;z-index:5;width:min(230px,calc(100% - 16px));background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 28px #0003;padding:8px 10px;font-size:12.5px}
 .pop .ttl{font-weight:700;margin-bottom:4px;font-size:14px;padding-right:22px}
-.pop .row{margin:4px 0}
+.pop .row{margin:0;padding:8px 0}
+.pop .row+.row{border-top:1px solid var(--line)}
+.pop .row:last-child{padding-bottom:2px}
 .pop .lb{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
 .pop .x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px}
 table{table-layout:fixed}
@@ -92,8 +94,9 @@ th:first-child,td:first-child{width:27%}
 td{overflow-wrap:break-word}
 td:first-child{hyphens:auto;-webkit-hyphens:auto}
 .nm{display:inline-flex;align-items:baseline;gap:5px}
-.favline{flex-basis:100%;display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+.favline{flex-basis:100%;display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500;margin:1px 0}
 .favline .dot{width:7px;height:7px}
+.dot.soft.D{background:var(--d-soft)}.dot.soft.R{background:var(--r-soft)}
 .nm .pct{font-weight:500;color:var(--muted)}
 .nm .dot{flex:none;transform:translateY(-1px)}
 @media (max-width:600px){
@@ -301,16 +304,19 @@ function hideTip(){document.querySelectorAll(".btip").forEach(t=>t.hidden=true);
 document.addEventListener("pointerover",e=>{if(e.pointerType!=="mouse")return;const sp=e.target.closest(".track span[data-tip]");if(sp)showTip(sp);else if(tipSeg)hideTip()});
 document.addEventListener("click",e=>{const sp=e.target.closest(".track span[data-tip]");if(sp){if(tipSeg===sp)hideTip();else showTip(sp)}else if(tipSeg)hideTip()});
 
+function favLine(r,label){const f=el("span","favline");f.append(el("span","dot soft "+r.party),document.createTextNode((label?label+PARTY[r.party]+" · ":"")+r.chance));return f}
+function flipTag(r){const t=el("span","tag flip","Flip");t.title="Cadeira era "+PARTY[r.holder];return t}
 function describe(r,compact){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
   const nm=el("span","nm");
-  if(compact&&!r.called){nm.append(el("span","dot "+p),el("span","pct",r.chance));w.append(nm);return w}
-  if(compact){nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,el("span","tag ok","✓ "+r.calledBy));
-    if(isFlip(r)){const t=el("span","tag flip","Flip");t.title="Cadeira era "+PARTY[r.holder];w.append(t)}return w}
-  nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+PARTY[p]+")":PARTY[p]));
-  w.append(nm,r.called?el("span","tag ok","✓ Projetado · "+r.calledBy):el("span","tag","Favorito · "+r.chance));
-  if(isFlip(r)){const t=el("span","tag flip","Flip");t.title="Cadeira era "+PARTY[r.holder];w.append(t)}
-  if(isUpset(r)){const f=el("span","favline");f.append(el("span","dot "+r.party),document.createTextNode("Favorito era "+PARTY[r.party]+" · "+r.chance));w.append(f)}
+  if(compact&&!r.called){nm.append(el("span","dot soft "+p),el("span","pct",r.chance));w.append(nm);return w}
+  if(compact){w.append(favLine(r));nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,el("span","tag ok","✓ "+r.calledBy));
+    if(isFlip(r))w.append(flipTag(r));return w}
+  if(!r.called){nm.append(el("span","dot soft "+p),el("span",null,PARTY[p]));w.append(nm,el("span","tag","Favorito · "+r.chance));return w}
+  nm.append(el("span","dot "+p),el("span",null,r.winner+" ("+PARTY[p]+")"));
+  w.append(nm,el("span","tag ok","✓ Projetado · "+r.calledBy));
+  if(isFlip(r))w.append(flipTag(r));
+  w.append(favLine(r,isUpset(r)?"Favorito era ":"Favorito: "));
   return w;
 }
 
