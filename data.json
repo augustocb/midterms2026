@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T05:21:47Z",
- "statusNote": "Projeções conferidas até 00:21 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T05:31:11Z",
+ "statusNote": "Projeções conferidas até 00:30 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -630,8 +630,11 @@
   "VT": {
    "party": "R",
    "chance": "90%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Phil Scott",
+   "winnerParty": "R",
+   "calledBy": "Decision Desk HQ"
   },
   "WI": {
    "party": "D",
@@ -678,5 +681,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T05:21:47Z"
+ "checked": "2026-11-04T05:31:11Z"
 }
