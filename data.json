@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T02:59:05Z",
- "statusNote": "Projeções conferidas até 21:55 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T03:08:42Z",
+ "statusNote": "Projeções conferidas até 22:07 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -84,7 +84,10 @@
   "SC": {
    "party": "R",
    "chance": "61%",
-   "called": false
+   "called": true,
+   "winner": "Annie Andrews",
+   "winnerParty": "D",
+   "calledBy": "CBS"
   },
   "CO": {
    "party": "D",
@@ -514,5 +517,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T02:59:05Z"
+ "checked": "2026-11-04T03:08:42Z"
 }
