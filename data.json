@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T06:15:54Z",
- "statusNote": "Projeções conferidas até 01:15 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T06:45:13Z",
+ "statusNote": "Projeções conferidas até 01:44 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -148,8 +148,11 @@
   "ID": {
    "party": "R",
    "chance": "98%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Jim Risch",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "IL": {
    "party": "D",
@@ -696,5 +699,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T06:15:54Z"
+ "checked": "2026-11-04T06:45:13Z"
 }
