@@ -23,13 +23,6 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .live{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--fg)}
 .live i{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 #16a34a88;animation:p 2s infinite}
 @keyframes p{70%{box-shadow:0 0 0 7px #16a34a00}100%{box-shadow:0 0 0 0 #16a34a00}}
-.toolbar{display:flex;align-items:center;gap:10px;margin:16px 0 14px;flex-wrap:wrap}
-.refresh{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:600 14px Inter,sans-serif;padding:8px 14px;border-radius:10px;cursor:pointer}
-.refresh:disabled{opacity:.6;cursor:default}
-.refresh svg{width:16px;height:16px}
-.refresh.spin svg{animation:sp 1s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.msg{font-size:13px;color:var(--muted)}
 .sec{font:600 13px Inter,sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:4px 0 6px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
@@ -41,19 +34,22 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .track{position:relative;height:22px;border-radius:6px;overflow:hidden;display:flex;background:var(--none)}
 .track span{height:100%}
 .mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--fg);opacity:.6}
+.map .legend{margin:0 0 6px}
+.map .key{margin:0 0 12px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px}
 .legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
 .map{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
-.t{aspect-ratio:1;border-radius:6px;position:relative;overflow:hidden;cursor:pointer;border:2px solid transparent;display:flex;flex-direction:column}
-.t .h{flex:1}
-.t .lab{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(9px,1.9vw,13px);font-weight:700;color:var(--fg);pointer-events:none}
-.t .lab span{background:var(--panel);border-radius:3px;padding:0 2px;line-height:1.2;font-size:.85em;opacity:.92}
+.t{aspect-ratio:.78;border-radius:6px;position:relative;overflow:hidden;cursor:pointer;border:2px solid transparent;display:flex;flex-direction:column;background:var(--panel);font-size:clamp(7.5px,1.75vw,12px)}
+.t .code{font-weight:700;text-align:center;line-height:1.35;color:var(--fg)}
+.t .h{flex:1;display:flex;align-items:center;justify-content:center;font-weight:600;line-height:1}
+.t .h.D1,.t .h.R1{color:#fff}.t .h.D0,.t .h.R0{color:var(--fg)}
+.t .h+.h{border-top:1.5px solid var(--panel)}
 .t .h+.h{border-top:1.5px solid var(--panel)}
 .D1{background:var(--d)}.R1{background:var(--r)}.D0{background:var(--d-soft)}.R0{background:var(--r-soft)}.N{background:var(--none)}
 .t.sel{border-color:var(--fg)}
 .key{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:10px}
-.key .mini{width:22px;height:22px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line)}
+.key .mini{flex:none;width:22px;height:28px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line)}
 .key .mini span{flex:1;font-size:8px;display:flex;align-items:center;justify-content:center;color:var(--fg)}
 .key .mini span+span{border-top:1px solid var(--line)}
 .detail .row{margin:3px 0}
@@ -87,13 +83,7 @@ tr:last-child td{border-bottom:0}
   </div>
   <div class="err" id="err">Não foi possível buscar a atualização mais recente; mostrando os últimos dados carregados.</div>
 
-  <div class="toolbar">
-    <button class="refresh" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>Atualizar</button>
-    <span class="msg" id="msg"></span>
-  </div>
-
   <div class="map">
-    <div class="grid" id="grid"></div>
     <div class="legend">
       <span><b style="background:var(--d)"></b>Democrata projetado</span>
       <span><b style="background:var(--r)"></b>Republicano projetado</span>
@@ -101,7 +91,8 @@ tr:last-child td{border-bottom:0}
       <span><b style="background:var(--r-soft)"></b>Republicano favorito</span>
       <span><b style="background:var(--none)"></b>Sem eleição</span>
     </div>
-    <div class="key"><div class="mini"><span>S</span><span>G</span></div>Metade de cima: Senado · metade de baixo: Governador</div>
+    <div class="key"><div class="mini"><span>S</span><span>G</span></div>Em cada estado: em cima, Senado; embaixo, Governador. ✓ = projetado; número = % de chance do favorito</div>
+    <div class="grid" id="grid"></div>
     <div class="detail" id="detail">Toque em um estado para ver detalhes.</div>
   </div>
 
@@ -141,6 +132,7 @@ let DATA=null,filter="all",sel=null,lastUpdated=null;
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
 function fmtTime(iso){try{return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}catch(e){return iso}}
 function tally(races){const c={D:0,R:0},f={D:0,R:0};for(const k in races){const r=races[k];if(r.called)c[r.winnerParty]++;else f[r.party]++}return {c,f}}
+function val(r){return !r?"":r.called?"✓":r.chance.replace("%","")}
 function cls(r){return !r?"N":r.called?r.winnerParty+"1":r.party+"0"}
 
 function summary(kind,cardsId,barId){
@@ -173,7 +165,7 @@ function render(){
   const grid=document.getElementById("grid");grid.replaceChildren();
   for(const code in TILES){
     const [r,col]=TILES[code];const t=el("div","t");t.style.gridRow=r+1;t.style.gridColumn=col+1;
-    t.append(el("div","h "+cls(S[code])),el("div","h "+cls(G[code])),(()=>{const l=el("div","lab");l.append(el("span",null,code));return l})());
+    t.append(el("div","code",code),el("div","h "+cls(S[code]),val(S[code])),el("div","h "+cls(G[code]),val(G[code])));
     if(sel===code)t.classList.add("sel");
     t.addEventListener("click",()=>{sel=code;render()});
     grid.append(t);
@@ -201,8 +193,8 @@ function render(){
 function describe(r){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
   w.append(el("span","dot "+p));
-  if(r.called){w.append(el("span",null,r.winner+" ("+p+")"),el("span","tag ok","✓ "+r.calledBy))}
-  else{w.append(el("span",null,(p==="D"?"Dem.":"Rep.")+" favorito"),el("span","tag",r.chance))}
+  if(r.called){w.append(el("span",null,r.winner+" ("+p+")"),el("span","tag ok","✓ Projetado · "+r.calledBy))}
+  else{w.append(el("span",null,PARTY[p]),el("span","tag","Favorito · "+r.chance))}
   return w;
 }
 
@@ -216,10 +208,8 @@ async function load(manual){
     document.getElementById("err").style.display="none";
     const stamp=d.updated+"|"+(d.checked||"");const changed=stamp!==lastUpdated;
     if(changed){DATA=d;lastUpdated=stamp;render()}
-    if(manual)document.getElementById("msg").textContent=changed?"Dados novos carregados.":"Nada novo. Os dados são conferidos a cada 5 minutos.";
   }catch(e){
     document.getElementById("err").style.display="block";
-    if(manual)document.getElementById("msg").textContent="Falha ao buscar. Tente de novo.";
   }
   document.getElementById("chk").textContent="Página checada às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 }
@@ -227,9 +217,6 @@ async function load(manual){
 document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));filter=b.dataset.f;render()}));
 
-const btn=document.getElementById("refresh");
-btn.addEventListener("click",async()=>{btn.disabled=true;btn.classList.add("spin");document.getElementById("msg").textContent="Buscando…";
-  await Promise.all([load(true),new Promise(r=>setTimeout(r,600))]);btn.disabled=false;btn.classList.remove("spin")});
 load(false);
 setInterval(()=>load(false),60000);
 </script>
