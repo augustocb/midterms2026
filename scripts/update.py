@@ -18,7 +18,7 @@ import urllib.error
 import urllib.request
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
-API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
+API_URL = "https://generativelanguage.googleapis.com/v1beta/interactions"
 DATA = os.path.join(os.path.dirname(__file__), "..", "data.json")
 OUTLETS = ("AP", "NBC", "CBS", "CNN", "ABC", "Fox", "DDHQ", "Decision Desk HQ", "NYT", "New York Times")
 
@@ -28,10 +28,7 @@ def now_iso():
 
 
 def call_api(prompt, key):
-    body = {
-        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-        "tools": [{"google_search": {}}],
-    }
+    body = {"model": MODEL, "input": prompt, "tools": [{"type": "google_search"}]}
     req = urllib.request.Request(
         API_URL,
         data=json.dumps(body).encode(),
@@ -84,16 +81,34 @@ Responda no final com UM bloco ```json e nada depois dele, neste formato:
 Liste em \"calls\" todas as projeções novas que encontrou (pode repetir as já marcadas). Cada item precisa do link (\"source\") da notícia que encontrou na busca; sem link, não inclua."""
 
 
+def walk(node):
+    """Percorre a resposta (formato antigo "outputs" ou novo "steps")."""
+    if isinstance(node, dict):
+        yield node
+        for v in node.values():
+            yield from walk(v)
+    elif isinstance(node, list):
+        for v in node:
+            yield from walk(v)
+
+
 def run_model(data, key):
     resp = call_api(build_prompt(data), key)
-    cand = (resp.get("candidates") or [{}])[0]
-    text = "".join(p.get("text", "") for p in cand.get("content", {}).get("parts", []) if not p.get("thought"))
-    gm = cand.get("groundingMetadata") or {}
-    queries = gm.get("webSearchQueries") or []
-    chunks = gm.get("groundingChunks") or []
-    print(f"Buscas feitas: {len(queries)} · fontes: {len(chunks)} · campos: {sorted(gm.keys())}")
-    if not queries and not chunks:
-        # sem busca no Google a resposta pode ter sido inventada: não aplicar nada
+    queries, results, texts = [], 0, []
+    for n in walk(resp):
+        t = n.get("type")
+        if t == "google_search_call":
+            queries += (n.get("arguments") or {}).get("queries") or ["?"]
+        elif t == "google_search_result":
+            results += 1
+        elif t == "text" and isinstance(n.get("text"), str):
+            texts.append(n["text"])
+    text = resp.get("output_text") if isinstance(resp.get("output_text"), str) else "\n".join(texts)
+    print(f"Buscas feitas: {len(queries)} · resultados: {results}")
+    for q in queries[:15]:
+        print("  busca:", q)
+    if not queries and not results:
+        print("Chaves da resposta:", sorted(resp.keys()))
         raise SystemExit("Gemini respondeu sem pesquisar; nenhuma mudança aplicada.")
     m = re.findall(r"```json\s*(\{.*?\})\s*```", text, re.S) or re.findall(r"(\{\s*\"calls\".*\})", text, re.S)
     if not m:
