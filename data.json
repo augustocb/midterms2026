@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T04:42:25Z",
- "statusNote": "Projeções conferidas até 23:42 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T04:52:03Z",
+ "statusNote": "Projeções conferidas até 23:51 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -351,8 +351,11 @@
   "AL": {
    "party": "R",
    "chance": "92%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Tommy Tuberville",
+   "winnerParty": "R",
+   "calledBy": "Decision Desk HQ"
   },
   "AK": {
    "party": "D",
@@ -504,8 +507,11 @@
   "MI": {
    "party": "D",
    "chance": "79%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Jocelyn Benson",
+   "winnerParty": "D",
+   "calledBy": "Decision Desk HQ"
   },
   "MN": {
    "party": "D",
@@ -654,5 +660,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T04:42:25Z"
+ "checked": "2026-11-04T04:52:03Z"
 }
