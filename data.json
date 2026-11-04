@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T03:08:42Z",
- "statusNote": "Projeções conferidas até 22:07 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T03:13:28Z",
+ "statusNote": "Projeções conferidas até 22:12 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -152,7 +152,10 @@
   "KY": {
    "party": "R",
    "chance": "94%",
-   "called": false
+   "called": true,
+   "winner": "Andy Barr",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "LA": {
    "party": "R",
@@ -229,7 +232,10 @@
   "OK": {
    "party": "R",
    "chance": "99%",
-   "called": false
+   "called": true,
+   "winner": "Kevin Hern",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "OR": {
    "party": "D",
@@ -321,7 +327,10 @@
   "CT": {
    "party": "D",
    "chance": "92%",
-   "called": false
+   "called": true,
+   "winner": "Ned Lamont",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "SD": {
    "party": "R",
@@ -517,5 +526,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T03:08:42Z"
+ "checked": "2026-11-04T03:13:28Z"
 }
