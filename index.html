@@ -207,7 +207,7 @@ function summary(kind,cardsId,barId){
 
 function render(){
   if(!DATA)return;
-  document.getElementById("upd").textContent="Última mudança: "+fmtTime(DATA.updated)+(DATA.checked?" · conferido "+fmtTime(DATA.checked):"");
+  document.getElementById("upd").textContent="Atualizado em "+fmtTime(DATA.checked||DATA.updated);
   document.getElementById("statusNote").textContent=DATA.statusNote||"";
   summary("senate","cardsS","barS");summary("governor","cardsG","barG");
 
