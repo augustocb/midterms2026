@@ -149,6 +149,14 @@ def main():
     if all(r.get("called") for o in ("senate", "governor") for r in data[o].values()):
         print("Todas as disputas já projetadas.")
         return 0
+    # evita rodadas em dobro (loop + agendamento de reserva)
+    min_gap = int(os.environ.get("MIN_GAP_SECONDS", "200"))
+    last = data.get("checked")
+    if last and min_gap > 0:
+        age = (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(last.replace("Z", "+00:00"))).total_seconds()
+        if age < min_gap:
+            print(f"Conferido há {int(age)}s; pulando esta rodada.")
+            return 0
     result = run_model(data, key)
     changes = merge(data, result)
     ts = now_iso()
