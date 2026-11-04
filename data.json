@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T05:41:36Z",
- "statusNote": "Projeções conferidas até 00:41 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T05:51:16Z",
+ "statusNote": "Projeções conferidas até 00:50 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -462,8 +462,11 @@
   "ID": {
    "party": "R",
    "chance": ">99%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Brad Little",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "IL": {
    "party": "D",
@@ -549,8 +552,11 @@
   "NH": {
    "party": "R",
    "chance": "67%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Kelly Ayotte",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "NY": {
    "party": "D",
@@ -618,8 +624,11 @@
   "TN": {
    "party": "R",
    "chance": "93%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Marsha Blackburn",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "TX": {
    "party": "R",
@@ -684,5 +693,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T05:41:36Z"
+ "checked": "2026-11-04T05:51:16Z"
 }
