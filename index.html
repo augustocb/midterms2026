@@ -319,16 +319,17 @@ document.addEventListener("pointerover",e=>{if(e.pointerType!=="mouse")return;co
 document.addEventListener("click",e=>{const sp=e.target.closest(".track span[data-tip]");if(sp){if(tipSeg===sp)hideTip();else showTip(sp)}else if(tipSeg)hideTip()});
 
 function favLine(r,label){const f=el("span","favline");f.append(el("span","dot soft "+r.party),document.createTextNode((label?label+PARTY[r.party]+" · ":"")+r.chance));return f}
+function okTag(r,txt){const t=el("span","tag ok",txt);t.title="Projetado por "+r.calledBy;return t}
 function flipTag(r){const t=el("span","tag flip","Flip");t.title="Cadeira era "+PARTY[r.holder];return t}
 function describe(r,compact){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
   const nm=el("span","nm");
   if(compact&&!r.called){nm.append(el("span","dot soft "+p),el("span","pct",r.chance));w.append(nm);return w}
-  if(compact){const fl=favLine(r);fl.classList.add("inl");w.append(fl);nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,el("span","tag ok","✓ "+r.calledBy));
+  if(compact){const fl=favLine(r);fl.classList.add("inl");w.append(fl);nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,okTag(r,"✓"));
     if(isFlip(r))w.append(flipTag(r));return w}
   if(!r.called){nm.append(el("span","dot soft "+p),el("span",null,PARTY[p]));w.append(nm,el("span","tag","Favorito · "+r.chance));return w}
   nm.append(el("span","dot "+p),el("span",null,r.winner+" ("+PARTY[p]+")"));
-  w.append(nm,el("span","tag ok","✓ Projetado · "+r.calledBy));
+  w.append(nm,okTag(r,"✓ Projetado"));
   if(isFlip(r))w.append(flipTag(r));
   w.append(favLine(r,isUpset(r)?"Favorito era ":"Favorito: "));
   return w;
