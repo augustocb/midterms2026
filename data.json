@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T02:43:23Z",
- "statusNote": "Projeções conferidas até 21:42 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T02:59:05Z",
+ "statusNote": "Projeções conferidas até 21:55 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -89,7 +89,10 @@
   "CO": {
    "party": "D",
    "chance": "97%",
-   "called": false
+   "called": true,
+   "winner": "John Hickenlooper",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "SD": {
    "party": "R",
@@ -307,7 +310,10 @@
   "CO": {
    "party": "D",
    "chance": "94%",
-   "called": false
+   "called": true,
+   "winner": "Phil Weiser",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "CT": {
    "party": "D",
@@ -508,5 +514,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T02:43:23Z"
+ "checked": "2026-11-04T02:59:05Z"
 }
