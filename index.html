@@ -63,9 +63,15 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .t .h.D1,.t .h.R1{color:#fff}.t .h.D0,.t .h.R0{color:var(--on-soft)}
 .t .h+.h{border-top:1.5px solid var(--panel)}
 .t .h{position:relative}
-.t .h.fl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 L8 -1 M-1 1 L1 -1 M6 8 L8 6' stroke='white' stroke-opacity='.55' stroke-width='1.3'/%3E%3C/svg%3E");background-size:7px 7px;background-repeat:repeat}
+.t .h.fl{background-size:7px 7px;background-repeat:repeat}
+.t .h.D1.fl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 L8 -1 M-1 1 L1 -1 M6 8 L8 6' stroke='%23173f86' stroke-width='1.4'/%3E%3C/svg%3E")}
+.t .h.R1.fl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 L8 -1 M-1 1 L1 -1 M6 8 L8 6' stroke='%238c261b' stroke-width='1.4'/%3E%3C/svg%3E")}
+@media (prefers-color-scheme:dark){.t .h.D1.fl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 L8 -1 M-1 1 L1 -1 M6 8 L8 6' stroke='%231d4596' stroke-width='1.4'/%3E%3C/svg%3E")}.t .h.R1.fl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 L8 -1 M-1 1 L1 -1 M6 8 L8 6' stroke='%239a2c1e' stroke-width='1.4'/%3E%3C/svg%3E")}}
+.t .h .up{position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;box-shadow:0 0 0 1.5px var(--panel)}
+.up.D,.leg-up.D{background:var(--d)}.up.R,.leg-up.R{background:var(--r)}
+.leg-up{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px}
 .tag.flip{background:transparent;color:var(--fg);border:1px dashed var(--fg);padding:0 6px}
-.leg-flip{display:inline-block;width:14px;height:14px;margin-right:5px;vertical-align:-2px;border-radius:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 L8 -1 M-1 1 L1 -1 M6 8 L8 6' stroke='white' stroke-opacity='.55' stroke-width='1.3'/%3E%3C/svg%3E") 0 0/6px 6px repeat,linear-gradient(90deg,var(--d) 50%,var(--r) 50%)}
+.leg-flip{display:inline-block;width:14px;height:14px;margin-right:5px;vertical-align:-2px;border-radius:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1 7 L7 -1 M-1 1 L1 -1 M5 7 L7 5' stroke='%23173f86' stroke-width='1.4'/%3E%3C/svg%3E") 0 0/6px 6px repeat-y,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1 7 L7 -1 M-1 1 L1 -1 M5 7 L7 5' stroke='%238c261b' stroke-width='1.4'/%3E%3C/svg%3E") 7px 0/6px 6px repeat-y,linear-gradient(90deg,var(--d) 50%,var(--r) 50%)}
 .t .h+.h{border-top:1.5px solid var(--panel)}
 .D1{background:var(--d)}.R1{background:var(--r)}.D0{background:var(--d-soft)}.R0{background:var(--r-soft)}.N{background:var(--none)}
 .t.sel{outline:2px solid var(--fg);outline-offset:1px;z-index:1;overflow:visible}
@@ -136,6 +142,7 @@ tbody tr:hover td{background:var(--hover)}
       <span><b style="background:var(--r-soft)"></b>REP favorito</span>
       <span><b style="background:var(--none)"></b>Sem eleição</span>
       <span><i class="leg-flip"></i>Flip (cadeira muda de partido)</span>
+      <span><i class="leg-up" style="background:linear-gradient(90deg,var(--d) 50%,var(--r) 50%)"></i>Cor do favorito, quando o projetado foi outro</span>
     </div>
     <div class="key"><div class="mini"><span>S</span><span>G</span></div>✓ = projetado · número = % de chance do favorito</div>
     <div class="grid" id="grid"></div>
@@ -180,6 +187,8 @@ function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className
 function fmtTime(iso){try{return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}catch(e){return iso}}
 function tally(races){const c={D:0,R:0},f={D:0,R:0};for(const k in races){const r=races[k];if(r.called)c[r.winnerParty]++;else f[r.party]++}return {c,f}}
 function val(r){return !r?"":r.called?"✓":r.chance.replace("%","")}
+function isUpset(r){return !!(r&&r.called&&r.winnerParty!==r.party)}
+function half(r){const d=el("div","h "+cls(r)+(isFlip(r)?" fl":""),val(r));if(isUpset(r))d.append(el("span","up "+r.party));return d}
 function isFlip(r){return !!(r&&r.called&&r.holder&&r.winnerParty!==r.holder)}
 function cls(r){return !r?"N":r.called?r.winnerParty+"1":r.party+"0"}
 
@@ -229,7 +238,7 @@ function render(){
   const grid=document.getElementById("grid");grid.replaceChildren();
   for(const code in TILES){
     const [r,col]=TILES[code];const t=el("div","t");t.style.gridRow=r+1;t.style.gridColumn=col+1;
-    t.append(el("div","code",code),el("div","h "+cls(S[code])+(isFlip(S[code])?" fl":""),val(S[code])),el("div","h "+cls(G[code])+(isFlip(G[code])?" fl":""),val(G[code])));
+    t.append(el("div","code",code),half(S[code]),half(G[code]));
     if(sel===code)t.classList.add("sel");
     t.dataset.code=code;
     t.addEventListener("click",e=>{e.stopPropagation();sel=(sel===code?null:code);render()});
