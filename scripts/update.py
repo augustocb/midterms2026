@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Atualiza data.json com as projeções de Senado e Governador (EUA 2026).
 
-Pede ao Claude (API da Anthropic, com busca na web) a lista de disputas já
+Pede ao Gemini (API do Google, com busca do Google) a lista de disputas já
 projetadas por veículos nomeados e mescla o resultado em data.json.
 Regras de segurança:
   - só marca uma disputa como projetada quando o modelo cita um veículo;
@@ -15,8 +15,8 @@ import re
 import sys
 import urllib.request
 
-API_URL = "https://api.anthropic.com/v1/messages"
-MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 DATA = os.path.join(os.path.dirname(__file__), "..", "data.json")
 OUTLETS = ("AP", "NBC", "CBS", "CNN", "ABC", "Fox", "DDHQ", "Decision Desk HQ", "NYT", "New York Times")
 
@@ -25,19 +25,17 @@ def now_iso():
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
-def call_api(messages, key):
+def call_api(prompt, key):
     body = {
-        "model": MODEL,
-        "max_tokens": 8000,
-        "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": 12}],
-        "messages": messages,
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "tools": [{"google_search": {}}],
     }
     req = urllib.request.Request(
         API_URL,
         data=json.dumps(body).encode(),
-        headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+        headers={"x-goog-api-key": key, "content-type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=600) as r:
+    with urllib.request.urlopen(req, timeout=300) as r:
         return json.load(r)
 
 
@@ -75,15 +73,12 @@ Liste em "calls" todas as projeções novas que encontrou (pode repetir as já m
 
 
 def run_model(data, key):
-    messages = [{"role": "user", "content": build_prompt(data)}]
-    for _ in range(6):
-        resp = call_api(messages, key)
-        if resp.get("stop_reason") == "pause_turn":
-            messages.append({"role": "assistant", "content": resp["content"]})
-            continue
-        break
-    text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
-    m = re.findall(r"```json\s*(\{.*?\})\s*```", text, re.S)
+    resp = call_api(build_prompt(data), key)
+    cand = (resp.get("candidates") or [{}])[0]
+    text = "".join(p.get("text", "") for p in cand.get("content", {}).get("parts", []) if not p.get("thought"))
+    queries = cand.get("groundingMetadata", {}).get("webSearchQueries", [])
+    print(f"Buscas feitas: {len(queries)}")
+    m = re.findall(r"```json\s*(\{.*?\})\s*```", text, re.S) or re.findall(r"(\{\s*\"calls\".*\})", text, re.S)
     if not m:
         raise SystemExit("Resposta sem bloco JSON:\n" + text[-2000:])
     return json.loads(m[-1])
@@ -113,9 +108,9 @@ def merge(data, result):
 
 
 def main():
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        print("::warning::Segredo ANTHROPIC_API_KEY não configurado; nada a fazer.")
+        print("::warning::Segredo GEMINI_API_KEY não configurado; nada a fazer.")
         return 0
     data = json.load(open(DATA, encoding="utf-8"))
     if all(r.get("called") for o in ("senate", "governor") for r in data[o].values()):

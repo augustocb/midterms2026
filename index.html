@@ -216,7 +216,7 @@ async function load(manual){
     document.getElementById("err").style.display="none";
     const stamp=d.updated+"|"+(d.checked||"");const changed=stamp!==lastUpdated;
     if(changed){DATA=d;lastUpdated=stamp;render()}
-    if(manual)document.getElementById("msg").textContent=changed?"Dados novos carregados.":"Nada novo. Os dados são conferidos a cada 10 minutos.";
+    if(manual)document.getElementById("msg").textContent=changed?"Dados novos carregados.":"Nada novo. Os dados são conferidos a cada 5 minutos.";
   }catch(e){
     document.getElementById("err").style.display="block";
     if(manual)document.getElementById("msg").textContent="Falha ao buscar. Tente de novo.";
