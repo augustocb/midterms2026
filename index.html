@@ -38,22 +38,33 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .map .key{margin:0 0 12px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px}
 .legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
-.map{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
-.t{aspect-ratio:.78;border-radius:6px;position:relative;overflow:hidden;cursor:pointer;border:2px solid transparent;display:flex;flex-direction:column;background:var(--panel);font-size:clamp(7.5px,1.75vw,12px)}
+.map{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.t{aspect-ratio:.8;border-radius:5px;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;background:var(--panel);font-size:clamp(9px,2.5vw,13px);-webkit-tap-highlight-color:transparent}
 .t .code{font-weight:700;text-align:center;line-height:1.35;color:var(--fg)}
 .t .h{flex:1;display:flex;align-items:center;justify-content:center;font-weight:600;line-height:1}
 .t .h.D1,.t .h.R1{color:#fff}.t .h.D0,.t .h.R0{color:var(--fg)}
 .t .h+.h{border-top:1.5px solid var(--panel)}
 .t .h+.h{border-top:1.5px solid var(--panel)}
 .D1{background:var(--d)}.R1{background:var(--r)}.D0{background:var(--d-soft)}.R0{background:var(--r-soft)}.N{background:var(--none)}
-.t.sel{border-color:var(--fg)}
+.t.sel{outline:2px solid var(--fg);outline-offset:1px;z-index:1;overflow:visible}
 .key{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:10px}
 .key .mini{flex:none;width:22px;height:28px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line)}
 .key .mini span{flex:1;font-size:8px;display:flex;align-items:center;justify-content:center;color:var(--fg)}
 .key .mini span+span{border-top:1px solid var(--line)}
-.detail .row{margin:3px 0}
-.detail{margin-top:10px;font-size:14px;min-height:22px;color:var(--fg)}
+.pop{position:absolute;z-index:5;width:min(230px,calc(100% - 16px));background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 28px #0003;padding:8px 10px;font-size:12.5px}
+.pop .ttl{font-weight:700;margin-bottom:4px;font-size:14px;padding-right:22px}
+.pop .row{margin:4px 0}
+.pop .lb{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.pop .x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px}
+@media (max-width:600px){
+  .wrap{padding:16px 10px 40px}
+  .map{padding:10px 6px}
+  .grid{gap:2px}
+  .t{border-radius:4px;aspect-ratio:.78}
+  .map .legend{padding:0 4px}
+  .map .key{padding:0 4px}
+}
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
 th{text-align:left;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid var(--line)}
 td{padding:8px 10px;font-size:13px;border-bottom:1px solid var(--line)}
@@ -91,9 +102,9 @@ tr:last-child td{border-bottom:0}
       <span><b style="background:var(--r-soft)"></b>Republicano favorito</span>
       <span><b style="background:var(--none)"></b>Sem eleição</span>
     </div>
-    <div class="key"><div class="mini"><span>S</span><span>G</span></div>Em cada estado: em cima, Senado; embaixo, Governador. ✓ = projetado; número = % de chance do favorito</div>
+    <div class="key"><div class="mini"><span>S</span><span>G</span></div>✓ = projetado · número = % de chance do favorito</div>
     <div class="grid" id="grid"></div>
-    <div class="detail" id="detail">Toque em um estado para ver detalhes.</div>
+    <div class="pop" id="pop" hidden></div>
   </div>
 
   <div class="sec">Senado</div>
@@ -167,14 +178,11 @@ function render(){
     const [r,col]=TILES[code];const t=el("div","t");t.style.gridRow=r+1;t.style.gridColumn=col+1;
     t.append(el("div","code",code),el("div","h "+cls(S[code]),val(S[code])),el("div","h "+cls(G[code]),val(G[code])));
     if(sel===code)t.classList.add("sel");
-    t.addEventListener("click",()=>{sel=code;render()});
+    t.dataset.code=code;
+    t.addEventListener("click",e=>{e.stopPropagation();sel=(sel===code?null:code);render()});
     grid.append(t);
   }
-  const det=document.getElementById("detail");det.replaceChildren();
-  if(sel){
-    det.append(el("div",null,DATA.states[sel]||sel));det.firstChild.style.fontWeight="700";
-    for(const [lab,set] of [["Senado",S],["Governador",G]]){const row=el("div","row");row.append(el("span",null,lab+": "));row.firstChild.style.color="var(--muted)";row.append(set[sel]?describe(set[sel]):el("span",null,"sem eleição"));det.append(row)}
-  }else det.textContent="Toque em um estado para ver detalhes.";
+  showPop();
 
   const tb=document.getElementById("rows");tb.replaceChildren();
   const codes=Object.keys(DATA.states).filter(c=>S[c]||G[c]).sort((a,b)=>DATA.states[a].localeCompare(DATA.states[b],"pt"));
@@ -189,6 +197,30 @@ function render(){
   const src=document.getElementById("src");src.replaceChildren(document.createTextNode("Fontes: "));
   (DATA.sources||[]).forEach((s,i)=>{if(i)src.append(document.createTextNode(" · "));const a=el("a",null,s.name);a.href=s.url;a.target="_blank";a.rel="noopener";src.append(a)});
 }
+
+function showPop(){
+  const pop=document.getElementById("pop");
+  const tile=sel&&document.querySelector('.t[data-code="'+sel+'"]');
+  if(!tile){pop.hidden=true;return}
+  const S=DATA.senate||{},G=DATA.governor||{};
+  pop.replaceChildren();
+  const x=el("button","x","×");x.setAttribute("aria-label","Fechar");x.addEventListener("click",e=>{e.stopPropagation();sel=null;render()});
+  pop.append(x,el("div","ttl",DATA.states[sel]||sel));
+  for(const [lab,set] of [["Senado",S],["Governador",G]]){
+    const row=el("div","row");row.append(el("span","lb",lab));
+    row.append(set[sel]?describe(set[sel]):el("span",null,"Sem eleição"));pop.append(row);
+  }
+  pop.hidden=false;
+  const map=pop.parentElement,mr=map.getBoundingClientRect(),tr=tile.getBoundingClientRect();
+  const pw=pop.offsetWidth,ph=pop.offsetHeight;
+  let left=tr.left-mr.left+tr.width/2-pw/2;left=Math.max(8,Math.min(left,mr.width-pw-8));
+  let top=tr.bottom-mr.top+6;
+  if(top+ph>mr.height-4&&tr.top-mr.top-ph-6>0)top=tr.top-mr.top-ph-6;
+  pop.style.left=left+"px";pop.style.top=top+"px";
+}
+document.addEventListener("click",e=>{if(sel&&!e.target.closest("#pop")){sel=null;render()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sel){sel=null;render()}});
+window.addEventListener("resize",()=>{if(sel)showPop()});
 
 function describe(r){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
