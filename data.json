@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T11:00:47Z",
- "statusNote": "Projeções conferidas até 06:00 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T11:10:29Z",
+ "statusNote": "Projeções conferidas até 06:10 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -564,8 +564,11 @@
   "NV": {
    "party": "D",
    "chance": "57%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Aaron Ford",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "NH": {
    "party": "R",
@@ -711,5 +714,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T11:00:47Z"
+ "checked": "2026-11-04T11:10:29Z"
 }
