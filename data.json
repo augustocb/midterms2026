@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T01:35:00Z",
- "statusNote": "Projeções de veículos até ~20h35 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T02:43:23Z",
+ "statusNote": "Projeções conferidas até 21:42 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -210,7 +210,10 @@
   "NM": {
    "party": "D",
    "chance": "96%",
-   "called": false
+   "called": true,
+   "winner": "Ben Ray Luján",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "OH": {
    "party": "D",
@@ -256,12 +259,18 @@
   "WV": {
    "party": "R",
    "chance": ">99%",
-   "called": false
+   "called": true,
+   "winner": "Shelley Moore Capito",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "WY": {
    "party": "R",
    "chance": "99%",
-   "called": false
+   "called": true,
+   "winner": "Harriet Hageman",
+   "winnerParty": "R",
+   "calledBy": "AP"
   }
  },
  "governor": {
@@ -313,12 +322,18 @@
   "FL": {
    "party": "R",
    "chance": "63%",
-   "called": false
+   "called": true,
+   "winner": "Byron Donalds",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "GA": {
    "party": "D",
    "chance": "62%",
-   "called": false
+   "called": true,
+   "winner": "Keisha Lance Bottoms",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "HI": {
    "party": "D",
@@ -397,7 +412,10 @@
   "NY": {
    "party": "D",
    "chance": "91%",
-   "called": false
+   "called": true,
+   "winner": "Kathy Hochul",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "NM": {
    "party": "D",
@@ -458,7 +476,10 @@
   "WY": {
    "party": "R",
    "chance": ">99%",
-   "called": false
+   "called": true,
+   "winner": "Eric Barlow",
+   "winnerParty": "R",
+   "calledBy": "AP"
   }
  },
  "sources": [
@@ -486,5 +507,6 @@
  "governorHoldover": {
   "D": 6,
   "R": 8
- }
+ },
+ "checked": "2026-11-04T02:43:23Z"
 }
