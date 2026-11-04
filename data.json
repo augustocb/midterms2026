@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T04:32:16Z",
- "statusNote": "Projeções conferidas até 23:31 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T04:42:25Z",
+ "statusNote": "Projeções conferidas até 23:42 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -112,8 +112,11 @@
   "SD": {
    "party": "R",
    "chance": "95%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Mike Rounds",
+   "winnerParty": "R",
+   "calledBy": "Decision Desk HQ"
   },
   "DE": {
    "party": "D",
@@ -160,8 +163,11 @@
   "IA": {
    "party": "D",
    "chance": "53%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Josh Turek",
+   "winnerParty": "D",
+   "calledBy": "CBS"
   },
   "KS": {
    "party": "D",
@@ -280,8 +286,11 @@
   "OR": {
    "party": "D",
    "chance": "99%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Jeff Merkley",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "RI": {
    "party": "D",
@@ -405,8 +414,11 @@
   "SD": {
    "party": "R",
    "chance": "97%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Larry Rhoden",
+   "winnerParty": "R",
+   "calledBy": "Fox"
   },
   "FL": {
    "party": "R",
@@ -465,8 +477,11 @@
   "ME": {
    "party": "D",
    "chance": "85%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Hannah Pingree",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "MD": {
    "party": "D",
@@ -639,5 +654,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T04:32:16Z"
+ "checked": "2026-11-04T04:42:25Z"
 }
