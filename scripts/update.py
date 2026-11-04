@@ -13,6 +13,8 @@ import json
 import os
 import re
 import sys
+import time
+import urllib.error
 import urllib.request
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
@@ -35,7 +37,7 @@ def call_api(prompt, key):
         data=json.dumps(body).encode(),
         headers={"x-goog-api-key": key, "content-type": "application/json"},
     )
-    import time, urllib.error
+
     for attempt in range(3):
         try:
             with urllib.request.urlopen(req, timeout=300) as r:
