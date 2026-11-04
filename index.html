@@ -9,11 +9,11 @@
 <style>
 :root{
   --bg:#f7f6f2;--panel:#fff;--fg:#1b1b1f;--muted:#6b6b73;--line:#e4e2dc;
-  --d:#2563c9;--d-soft:#c9d9f4;--r:#d0402f;--r-soft:#f5cfc8;--none:#ebe9e3;
+  --d:#2563c9;--d-soft:#c9d9f4;--d-dark:#173f86;--r:#d0402f;--r-soft:#f5cfc8;--r-dark:#8c261b;--none:#ebe9e3;
 }
 @media (prefers-color-scheme:dark){
   :root{--bg:#141417;--panel:#1d1d22;--fg:#ececf0;--muted:#9a9aa5;--line:#2c2c33;
-  --d:#5b8ff0;--d-soft:#24385e;--r:#ef6a58;--r-soft:#5a2a24;--none:#26262c;}
+  --d:#5b8ff0;--d-soft:#24385e;--d-dark:#2b4f9e;--r:#ef6a58;--r-soft:#5a2a24;--r-dark:#a8402e;--none:#26262c;}
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 Inter,system-ui,sans-serif}
@@ -38,6 +38,11 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .bar .ctr{color:var(--muted);font-size:12px;text-align:center}
 .track{position:relative;height:22px;border-radius:6px;overflow:hidden;display:flex;background:var(--none)}
 .track span{height:100%}
+.track span+span{box-shadow:inset 1px 0 0 var(--panel)}
+.legend.bk{flex-direction:column;gap:4px}
+.legend.bk span{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.legend.bk span i{font-style:normal;color:var(--fg);white-space:nowrap}
+.legend .sw{display:inline-flex;align-items:center}
 .mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--fg);opacity:.6}
 .map .legend{margin:0 0 6px}
 .map .key{margin:0 0 12px}
@@ -166,11 +171,12 @@ function side(name,n,fav,al){
   const s=el("span","side "+al);s.append(el("b",null,name+" "+n));
   s.append(el("small",null,"+"+fav+" favorito"+(fav===1?"":"s")));return s;
 }
-function barKey(first){
-  const k=el("div","legend");
-  for(const [c,t] of [["var(--d)",first],["var(--d-soft)","Favorito (+)"]]){const s=el("span");const b=el("b");b.style.background=c;s.append(b,document.createTextNode(t));k.append(s)}
-  k.firstChild.firstChild.style.background="linear-gradient(90deg,var(--d) 50%,var(--r) 50%)";
-  k.lastChild.firstChild.style.background="linear-gradient(90deg,var(--d-soft) 50%,var(--r-soft) 50%)";
+function barKey(rows){
+  const k=el("div","legend bk");
+  for(const [dc,rc,t,d,r] of rows){
+    const s=el("span"),l=el("span","sw"),b=el("b");b.style.background=`linear-gradient(90deg,${dc} 50%,${rc} 50%)`;
+    l.append(b,document.createTextNode(t));s.append(l,el("i",null,d+" D · "+r+" R"));k.append(s);
+  }
   return k;
 }
 function summary(kind,cardsId,barId){
@@ -181,17 +187,16 @@ function summary(kind,cardsId,barId){
   const bar=document.getElementById(barId);bar.replaceChildren();
   const seg=(w,col)=>{const s=el("span");s.style.width=w+"%";s.style.background=col;return s};
   const lbl=el("div","lbl"),tr=el("div","track");
-  if(kind==="senate"){
-    const h=DATA.senateHoldover||{D:0,R:0},D=h.D+c.D,R=h.R+c.R;
-    lbl.append(side("Democratas",D,f.D,"l"),el("span","ctr","51 para maioria"),side("Republicanos",R,f.R,"r"));
-    tr.append(seg(D,"var(--d)"),seg(f.D,"var(--d-soft)"),seg(100-D-R-f.D-f.R,"var(--none)"),seg(f.R,"var(--r-soft)"),seg(R,"var(--r)"),el("div","mid"));
-    bar.append(lbl,tr,barKey("Projetado / fora de disputa"),el("div","legend",`Inclui as cadeiras fora de disputa este ano (${h.D} D, contando independentes que votam com os democratas, e ${h.R} R).`));
-  }else{
-    const pc=n=>n/total*100;
-    lbl.append(side("Democratas",c.D,f.D,"l"),el("span","ctr",total+" disputas"),side("Republicanos",c.R,f.R,"r"));
-    tr.append(seg(pc(c.D),"var(--d)"),seg(pc(f.D),"var(--d-soft)"),seg(pc(total-c.D-c.R-f.D-f.R),"var(--none)"),seg(pc(f.R),"var(--r-soft)"),seg(pc(c.R),"var(--r)"));
-    bar.append(lbl,tr,barKey("Projetado"));
-  }
+  const isS=kind==="senate";
+  const h=(isS?DATA.senateHoldover:DATA.governorHoldover)||{D:0,R:0};
+  const N=total+h.D+h.R,pc=n=>n/N*100,D=h.D+c.D,R=h.R+c.R;
+  lbl.append(side("Democratas",D,f.D,"l"),el("span","ctr",isS?"51 para maioria":"26 para maioria"),side("Republicanos",R,f.R,"r"));
+  tr.append(seg(pc(h.D),"var(--d-dark)"),seg(pc(c.D),"var(--d)"),seg(pc(f.D),"var(--d-soft)"),seg(pc(N-D-R-f.D-f.R),"var(--none)"),seg(pc(f.R),"var(--r-soft)"),seg(pc(c.R),"var(--r)"),seg(pc(h.R),"var(--r-dark)"),el("div","mid"));
+  bar.append(lbl,tr,barKey([
+    ["var(--d-dark)","var(--r-dark)",isS?"Já eleitos (fora de disputa)":"Já no cargo (sem eleição)",h.D,h.R],
+    ["var(--d)","var(--r)","Projetados hoje",c.D,c.R],
+    ["var(--d-soft)","var(--r-soft)","Favoritos (ainda em aberto)",f.D,f.R]]));
+  if(isS)bar.append(el("div","legend","Independentes que votam com os democratas contam como D."));
 }
 
 function render(){

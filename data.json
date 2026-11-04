@@ -482,5 +482,9 @@
    "name": "CNBC – ao vivo (projeções AP)",
    "url": "https://cnbc.com/2026/11/03/midterm-elections-2026-live-updates.html"
   }
- ]
+ ],
+ "governorHoldover": {
+  "D": 6,
+  "R": 8
+ }
 }
