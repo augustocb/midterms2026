@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eleições EUA 2026 – Senado e Governador ao vivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2;--panel:#fff;--fg:#1b1b1f;--muted:#6b6b73;--line:#e4e2dc;
+  --d:#2563c9;--d-soft:#c9d9f4;--r:#d0402f;--r-soft:#f5cfc8;--none:#ebe9e3;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#141417;--panel:#1d1d22;--fg:#ececf0;--muted:#9a9aa5;--line:#2c2c33;
+  --d:#5b8ff0;--d-soft:#24385e;--r:#ef6a58;--r-soft:#5a2a24;--none:#26262c;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 Inter,system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
+.sub{color:var(--muted);font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.live{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--fg)}
+.live i{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 #16a34a88;animation:p 2s infinite}
+@keyframes p{70%{box-shadow:0 0 0 7px #16a34a00}100%{box-shadow:0 0 0 0 #16a34a00}}
+.toolbar{display:flex;align-items:center;gap:10px;margin:16px 0 14px;flex-wrap:wrap}
+.refresh{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:600 14px Inter,sans-serif;padding:8px 14px;border-radius:10px;cursor:pointer}
+.refresh:disabled{opacity:.6;cursor:default}
+.refresh svg{width:16px;height:16px}
+.refresh.spin svg{animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.msg{font-size:13px;color:var(--muted)}
+.sec{font:600 13px Inter,sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:4px 0 6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.card .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.card .v{font:600 28px/1.1 Fraunces,Georgia,serif;margin-top:4px}
+.card .v small{font:500 13px Inter,sans-serif;color:var(--muted)}
+.bar{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.bar .lbl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.track{position:relative;height:22px;border-radius:6px;overflow:hidden;display:flex;background:var(--none)}
+.track span{height:100%}
+.mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--fg);opacity:.6}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.map{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+.t{aspect-ratio:1;border-radius:6px;position:relative;overflow:hidden;cursor:pointer;border:2px solid transparent;display:flex;flex-direction:column}
+.t .h{flex:1}
+.t .lab{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(9px,1.9vw,13px);font-weight:700;color:var(--fg);pointer-events:none}
+.t .lab span{background:var(--panel);border-radius:3px;padding:0 2px;line-height:1.2;font-size:.85em;opacity:.92}
+.t .h+.h{border-top:1.5px solid var(--panel)}
+.D1{background:var(--d)}.R1{background:var(--r)}.D0{background:var(--d-soft)}.R0{background:var(--r-soft)}.N{background:var(--none)}
+.t.sel{border-color:var(--fg)}
+.key{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.key .mini{width:22px;height:22px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line)}
+.key .mini span{flex:1;font-size:8px;display:flex;align-items:center;justify-content:center;color:var(--fg)}
+.key .mini span+span{border-top:1px solid var(--line)}
+.detail .row{margin:3px 0}
+.detail{margin-top:10px;font-size:14px;min-height:22px;color:var(--fg)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:8px 10px;font-size:13px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot.D{background:var(--d)}.dot.R{background:var(--r)}
+.tag{white-space:nowrap;font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--none);color:var(--muted)}
+.tag.ok{background:#16a34a22;color:#15803d}
+@media (prefers-color-scheme:dark){.tag.ok{color:#4ade80}}
+.filters{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:99px;padding:5px 12px;font:500 13px Inter,sans-serif;cursor:pointer}
+.filters button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.note{font-size:13px;color:var(--muted);margin:14px 0 6px}
+.src a{color:var(--muted)}
+.src{font-size:12.5px;color:var(--muted);line-height:1.8}
+.err{display:none;background:#f59e0b22;color:var(--fg);padding:8px 12px;border-radius:10px;font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Eleições EUA 2026: Senado e Governador</h1>
+  <div class="sub">
+    <span class="live"><i></i>Ao vivo</span>
+    <span id="upd">Atualizado —</span>
+    <span id="chk"></span>
+  </div>
+  <div class="err" id="err">Não foi possível buscar a atualização mais recente; mostrando os últimos dados carregados.</div>
+
+  <div class="toolbar">
+    <button class="refresh" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>Atualizar</button>
+    <span class="msg" id="msg"></span>
+  </div>
+
+  <div class="map">
+    <div class="grid" id="grid"></div>
+    <div class="legend">
+      <span><b style="background:var(--d)"></b>Democrata projetado</span>
+      <span><b style="background:var(--r)"></b>Republicano projetado</span>
+      <span><b style="background:var(--d-soft)"></b>Democrata favorito</span>
+      <span><b style="background:var(--r-soft)"></b>Republicano favorito</span>
+      <span><b style="background:var(--none)"></b>Sem eleição</span>
+    </div>
+    <div class="key"><div class="mini"><span>S</span><span>G</span></div>Metade de cima: Senado · metade de baixo: Governador</div>
+    <div class="detail" id="detail">Toque em um estado para ver detalhes.</div>
+  </div>
+
+  <div class="sec">Senado</div>
+  <div class="cards" id="cardsS"></div>
+  <div class="bar" id="barS"></div>
+  <div class="sec">Governador</div>
+  <div class="cards" id="cardsG"></div>
+  <div class="bar" id="barG"></div>
+
+  <div class="filters" id="filters">
+    <button class="on" data-f="all">Todos</button>
+    <button data-f="called">Projetados</button>
+    <button data-f="open">Em aberto</button>
+  </div>
+  <table>
+    <thead><tr><th>Estado</th><th>Senado</th><th>Governador</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <p class="note" id="statusNote"></p>
+  <div class="src" id="src"></div>
+</div>
+
+<script>
+const TILES={AK:[0,0],ME:[0,11],VT:[1,10],NH:[1,11],
+WA:[2,1],ID:[2,2],MT:[2,3],ND:[2,4],MN:[2,5],IL:[2,6],WI:[2,7],MI:[2,8],NY:[2,9],RI:[2,10],MA:[2,11],
+OR:[3,1],NV:[3,2],WY:[3,3],SD:[3,4],IA:[3,5],IN:[3,6],OH:[3,7],PA:[3,8],NJ:[3,9],CT:[3,10],
+CA:[4,1],UT:[4,2],CO:[4,3],NE:[4,4],MO:[4,5],KY:[4,6],WV:[4,7],VA:[4,8],MD:[4,9],DE:[4,10],
+AZ:[5,2],NM:[5,3],KS:[5,4],AR:[5,5],TN:[5,6],NC:[5,7],SC:[5,8],
+OK:[6,4],LA:[6,5],MS:[6,6],AL:[6,7],GA:[6,8],
+HI:[7,0],TX:[7,4],FL:[7,9]};
+const RAW="https://raw.githubusercontent.com/augustocb/midterms2026/main/data.json";
+const PARTY={D:"Democrata",R:"Republicano"};
+let DATA=null,filter="all",sel=null,lastUpdated=null;
+
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function fmtTime(iso){try{return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}catch(e){return iso}}
+function tally(races){const c={D:0,R:0},f={D:0,R:0};for(const k in races){const r=races[k];if(r.called)c[r.winnerParty]++;else f[r.party]++}return {c,f}}
+function cls(r){return !r?"N":r.called?r.winnerParty+"1":r.party+"0"}
+
+function summary(kind,cardsId,barId){
+  const races=DATA[kind]||{};const {c,f}=tally(races);const total=Object.keys(races).length,open=total-c.D-c.R;
+  const cards=document.getElementById(cardsId);cards.replaceChildren();
+  const mk=(k,v,s)=>{const d=el("div","card");d.append(el("div","k",k));const vv=el("div","v",String(v));if(s)vv.append(el("small",null," "+s));d.append(vv);return d};
+  cards.append(mk("Projetados D",c.D),mk("Projetados R",c.R),mk("Em aberto",open,"de "+total),mk("Previsão final",(c.D+f.D)+"–"+(c.R+f.R),"D–R"));
+  const bar=document.getElementById(barId);bar.replaceChildren();
+  const seg=(w,col)=>{const s=el("span");s.style.width=w+"%";s.style.background=col;return s};
+  const lbl=el("div","lbl"),tr=el("div","track");
+  if(kind==="senate"){
+    const h=DATA.senateHoldover||{D:0,R:0},D=h.D+c.D,R=h.R+c.R;
+    lbl.append(el("span",null,"Democratas "+D),el("span",null,"51 para maioria"),el("span",null,R+" Republicanos"));
+    tr.append(seg(D,"var(--d)"),seg(100-D-R,"var(--none)"),seg(R,"var(--r)"),el("div","mid"));
+    bar.append(lbl,tr,el("div","legend",`Inclui as cadeiras fora de disputa este ano (${h.D} D, contando independentes que votam com os democratas, e ${h.R} R).`));
+  }else{
+    lbl.append(el("span",null,"Projetados D "+c.D),el("span",null,total+" disputas"),el("span",null,c.R+" projetados R"));
+    tr.append(seg(c.D/total*100,"var(--d)"),seg((total-c.D-c.R)/total*100,"var(--none)"),seg(c.R/total*100,"var(--r)"));
+    bar.append(lbl,tr);
+  }
+}
+
+function render(){
+  if(!DATA)return;
+  document.getElementById("upd").textContent="Última mudança: "+fmtTime(DATA.updated)+(DATA.checked?" · conferido "+fmtTime(DATA.checked):"");
+  document.getElementById("statusNote").textContent=DATA.statusNote||"";
+  summary("senate","cardsS","barS");summary("governor","cardsG","barG");
+
+  const S=DATA.senate||{},G=DATA.governor||{};
+  const grid=document.getElementById("grid");grid.replaceChildren();
+  for(const code in TILES){
+    const [r,col]=TILES[code];const t=el("div","t");t.style.gridRow=r+1;t.style.gridColumn=col+1;
+    t.append(el("div","h "+cls(S[code])),el("div","h "+cls(G[code])),(()=>{const l=el("div","lab");l.append(el("span",null,code));return l})());
+    if(sel===code)t.classList.add("sel");
+    t.addEventListener("click",()=>{sel=code;render()});
+    grid.append(t);
+  }
+  const det=document.getElementById("detail");det.replaceChildren();
+  if(sel){
+    det.append(el("div",null,DATA.states[sel]||sel));det.firstChild.style.fontWeight="700";
+    for(const [lab,set] of [["Senado",S],["Governador",G]]){const row=el("div","row");row.append(el("span",null,lab+": "));row.firstChild.style.color="var(--muted)";row.append(set[sel]?describe(set[sel]):el("span",null,"sem eleição"));det.append(row)}
+  }else det.textContent="Toque em um estado para ver detalhes.";
+
+  const tb=document.getElementById("rows");tb.replaceChildren();
+  const codes=Object.keys(DATA.states).filter(c=>S[c]||G[c]).sort((a,b)=>DATA.states[a].localeCompare(DATA.states[b],"pt"));
+  for(const code of codes){
+    const rs=[S[code],G[code]].filter(Boolean);
+    if(filter==="called"&&!rs.some(r=>r.called))continue;
+    if(filter==="open"&&!rs.some(r=>!r.called))continue;
+    const tr=el("tr");tr.append(el("td",null,DATA.states[code]));
+    for(const r of [S[code],G[code]]){const td=el("td");if(r)td.append(describe(r));else{td.textContent="—";td.style.color="var(--muted)"}tr.append(td)}
+    tb.append(tr);
+  }
+  const src=document.getElementById("src");src.replaceChildren(document.createTextNode("Fontes: "));
+  (DATA.sources||[]).forEach((s,i)=>{if(i)src.append(document.createTextNode(" · "));const a=el("a",null,s.name);a.href=s.url;a.target="_blank";a.rel="noopener";src.append(a)});
+}
+
+function describe(r){
+  const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
+  w.append(el("span","dot "+p));
+  if(r.called){w.append(el("span",null,r.winner+" ("+p+")"),el("span","tag ok","✓ "+r.calledBy))}
+  else{w.append(el("span",null,(p==="D"?"Dem.":"Rep.")+" favorito"),el("span","tag",r.chance))}
+  return w;
+}
+
+async function load(manual){
+  try{
+    let d=null;
+    for(const u of [RAW+"?t="+Date.now(),"data.json?t="+Date.now()]){
+      try{const res=await fetch(u,{cache:"no-store"});if(res.ok){d=await res.json();break}}catch(_){}
+    }
+    if(!d)throw new Error("fetch");
+    document.getElementById("err").style.display="none";
+    const stamp=d.updated+"|"+(d.checked||"");const changed=stamp!==lastUpdated;
+    if(changed){DATA=d;lastUpdated=stamp;render()}
+    if(manual)document.getElementById("msg").textContent=changed?"Dados novos carregados.":"Nada novo. Os dados são conferidos a cada 10 minutos.";
+  }catch(e){
+    document.getElementById("err").style.display="block";
+    if(manual)document.getElementById("msg").textContent="Falha ao buscar. Tente de novo.";
+  }
+  document.getElementById("chk").textContent="Página checada às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+}
+
+document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));filter=b.dataset.f;render()}));
+
+const btn=document.getElementById("refresh");
+btn.addEventListener("click",async()=>{btn.disabled=true;btn.classList.add("spin");document.getElementById("msg").textContent="Buscando…";
+  await Promise.all([load(true),new Promise(r=>setTimeout(r,600))]);btn.disabled=false;btn.classList.remove("spin")});
+load(false);
+setInterval(()=>load(false),60000);
+</script>
+</body>
+</html>

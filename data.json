@@ -1,0 +1,486 @@
+{
+ "updated": "2026-11-04T01:35:00Z",
+ "statusNote": "Projeções de veículos até ~20h35 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "senateHoldover": {
+  "D": 34,
+  "R": 31
+ },
+ "states": {
+  "AL": "Alabama",
+  "AK": "Alasca",
+  "AZ": "Arizona",
+  "AR": "Arkansas",
+  "CA": "Califórnia",
+  "NC": "Carolina do Norte",
+  "SC": "Carolina do Sul",
+  "CO": "Colorado",
+  "CT": "Connecticut",
+  "SD": "Dakota do Sul",
+  "DE": "Delaware",
+  "FL": "Flórida",
+  "GA": "Geórgia",
+  "HI": "Havaí",
+  "ID": "Idaho",
+  "IL": "Illinois",
+  "IA": "Iowa",
+  "KS": "Kansas",
+  "KY": "Kentucky",
+  "LA": "Luisiana",
+  "ME": "Maine",
+  "MD": "Maryland",
+  "MA": "Massachusetts",
+  "MI": "Michigan",
+  "MN": "Minnesota",
+  "MS": "Mississippi",
+  "MT": "Montana",
+  "NE": "Nebraska",
+  "NV": "Nevada",
+  "NH": "New Hampshire",
+  "NJ": "Nova Jersey",
+  "NY": "Nova York",
+  "NM": "Novo México",
+  "OH": "Ohio",
+  "OK": "Oklahoma",
+  "OR": "Oregon",
+  "PA": "Pensilvânia",
+  "RI": "Rhode Island",
+  "TN": "Tennessee",
+  "TX": "Texas",
+  "VT": "Vermont",
+  "VA": "Virgínia",
+  "WV": "Virgínia Ocidental",
+  "WI": "Wisconsin",
+  "WY": "Wyoming",
+  "IN": "Indiana",
+  "MO": "Missouri",
+  "ND": "Dakota do Norte",
+  "UT": "Utah",
+  "WA": "Washington"
+ },
+ "senate": {
+  "AL": {
+   "party": "R",
+   "chance": "95%",
+   "called": false
+  },
+  "AK": {
+   "party": "D",
+   "chance": "61%",
+   "called": false
+  },
+  "AR": {
+   "party": "R",
+   "chance": "96%",
+   "called": false
+  },
+  "NC": {
+   "party": "D",
+   "chance": "85%",
+   "called": true,
+   "winner": "Roy Cooper",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "SC": {
+   "party": "R",
+   "chance": "61%",
+   "called": false
+  },
+  "CO": {
+   "party": "D",
+   "chance": "97%",
+   "called": false
+  },
+  "SD": {
+   "party": "R",
+   "chance": "95%",
+   "called": false
+  },
+  "DE": {
+   "party": "D",
+   "chance": "99%",
+   "called": true,
+   "winner": "Chris Coons",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "FL": {
+   "party": "R",
+   "chance": "75%",
+   "called": true,
+   "winner": "Ashley Moody",
+   "winnerParty": "R",
+   "calledBy": "NBC"
+  },
+  "GA": {
+   "party": "D",
+   "chance": "89%",
+   "called": true,
+   "winner": "Jon Ossoff",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "ID": {
+   "party": "R",
+   "chance": "98%",
+   "called": false
+  },
+  "IL": {
+   "party": "D",
+   "chance": "96%",
+   "called": true,
+   "winner": "Juliana Stratton",
+   "winnerParty": "D",
+   "calledBy": "NBC"
+  },
+  "IA": {
+   "party": "D",
+   "chance": "53%",
+   "called": false
+  },
+  "KS": {
+   "party": "D",
+   "chance": "51%",
+   "called": false
+  },
+  "KY": {
+   "party": "R",
+   "chance": "94%",
+   "called": false
+  },
+  "LA": {
+   "party": "R",
+   "chance": "86%",
+   "called": false
+  },
+  "ME": {
+   "party": "D",
+   "chance": "65%",
+   "called": false
+  },
+  "MA": {
+   "party": "D",
+   "chance": "99%",
+   "called": true,
+   "winner": "Ed Markey",
+   "winnerParty": "D",
+   "calledBy": "NBC/CBS"
+  },
+  "MI": {
+   "party": "D",
+   "chance": "75%",
+   "called": false
+  },
+  "MN": {
+   "party": "D",
+   "chance": "85%",
+   "called": false
+  },
+  "MS": {
+   "party": "R",
+   "chance": "90%",
+   "called": false
+  },
+  "MT": {
+   "party": "R",
+   "chance": "77%",
+   "called": false
+  },
+  "NE": {
+   "party": "R",
+   "chance": "73%",
+   "called": false
+  },
+  "NH": {
+   "party": "D",
+   "chance": "88%",
+   "called": true,
+   "winner": "Chris Pappas",
+   "winnerParty": "D",
+   "calledBy": "NBC/CBS"
+  },
+  "NJ": {
+   "party": "D",
+   "chance": "96%",
+   "called": true,
+   "winner": "Cory Booker",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "NM": {
+   "party": "D",
+   "chance": "96%",
+   "called": false
+  },
+  "OH": {
+   "party": "D",
+   "chance": "54%",
+   "called": false
+  },
+  "OK": {
+   "party": "R",
+   "chance": "99%",
+   "called": false
+  },
+  "OR": {
+   "party": "D",
+   "chance": "99%",
+   "called": false
+  },
+  "RI": {
+   "party": "D",
+   "chance": "99%",
+   "called": true,
+   "winner": "Jack Reed",
+   "winnerParty": "D",
+   "calledBy": "NBC/CBS"
+  },
+  "TN": {
+   "party": "R",
+   "chance": "97%",
+   "called": false
+  },
+  "TX": {
+   "party": "D",
+   "chance": "62%",
+   "called": false
+  },
+  "VA": {
+   "party": "D",
+   "chance": "96%",
+   "called": true,
+   "winner": "Mark Warner",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "WV": {
+   "party": "R",
+   "chance": ">99%",
+   "called": false
+  },
+  "WY": {
+   "party": "R",
+   "chance": "99%",
+   "called": false
+  }
+ },
+ "governor": {
+  "AL": {
+   "party": "R",
+   "chance": "92%",
+   "called": false
+  },
+  "AK": {
+   "party": "D",
+   "chance": "71%",
+   "called": false
+  },
+  "AZ": {
+   "party": "D",
+   "chance": "76%",
+   "called": false
+  },
+  "AR": {
+   "party": "R",
+   "chance": "98%",
+   "called": false
+  },
+  "CA": {
+   "party": "D",
+   "chance": "98%",
+   "called": false
+  },
+  "SC": {
+   "party": "R",
+   "chance": "77%",
+   "called": false
+  },
+  "CO": {
+   "party": "D",
+   "chance": "94%",
+   "called": false
+  },
+  "CT": {
+   "party": "D",
+   "chance": "92%",
+   "called": false
+  },
+  "SD": {
+   "party": "R",
+   "chance": "97%",
+   "called": false
+  },
+  "FL": {
+   "party": "R",
+   "chance": "63%",
+   "called": false
+  },
+  "GA": {
+   "party": "D",
+   "chance": "62%",
+   "called": false
+  },
+  "HI": {
+   "party": "D",
+   "chance": "99%",
+   "called": false
+  },
+  "ID": {
+   "party": "R",
+   "chance": ">99%",
+   "called": false
+  },
+  "IL": {
+   "party": "D",
+   "chance": "95%",
+   "called": true,
+   "winner": "JB Pritzker",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "IA": {
+   "party": "D",
+   "chance": "71%",
+   "called": false
+  },
+  "KS": {
+   "party": "R",
+   "chance": "61%",
+   "called": false
+  },
+  "ME": {
+   "party": "D",
+   "chance": "85%",
+   "called": false
+  },
+  "MD": {
+   "party": "D",
+   "chance": ">99%",
+   "called": true,
+   "winner": "Wes Moore",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "MA": {
+   "party": "D",
+   "chance": "98%",
+   "called": true,
+   "winner": "Maura Healey",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "MI": {
+   "party": "D",
+   "chance": "79%",
+   "called": false
+  },
+  "MN": {
+   "party": "D",
+   "chance": "91%",
+   "called": false
+  },
+  "NE": {
+   "party": "R",
+   "chance": "80%",
+   "called": false
+  },
+  "NV": {
+   "party": "D",
+   "chance": "57%",
+   "called": false
+  },
+  "NH": {
+   "party": "R",
+   "chance": "67%",
+   "called": false
+  },
+  "NY": {
+   "party": "D",
+   "chance": "91%",
+   "called": false
+  },
+  "NM": {
+   "party": "D",
+   "chance": "87%",
+   "called": false
+  },
+  "OH": {
+   "party": "D",
+   "chance": "63%",
+   "called": false
+  },
+  "OK": {
+   "party": "R",
+   "chance": "95%",
+   "called": false
+  },
+  "OR": {
+   "party": "D",
+   "chance": "81%",
+   "called": false
+  },
+  "PA": {
+   "party": "D",
+   "chance": "96%",
+   "called": true,
+   "winner": "Josh Shapiro",
+   "winnerParty": "D",
+   "calledBy": "AP"
+  },
+  "RI": {
+   "party": "D",
+   "chance": "96%",
+   "called": true,
+   "winner": "Helena Foulkes",
+   "winnerParty": "D",
+   "calledBy": "NBC"
+  },
+  "TN": {
+   "party": "R",
+   "chance": "93%",
+   "called": false
+  },
+  "TX": {
+   "party": "R",
+   "chance": "69%",
+   "called": false
+  },
+  "VT": {
+   "party": "R",
+   "chance": "90%",
+   "called": false
+  },
+  "WI": {
+   "party": "D",
+   "chance": "73%",
+   "called": false
+  },
+  "WY": {
+   "party": "R",
+   "chance": ">99%",
+   "called": false
+  }
+ },
+ "sources": [
+  {
+   "name": "Decision Desk HQ – previsão Senado",
+   "url": "https://votes.decisiondeskhq.com/forecast/2026/senate"
+  },
+  {
+   "name": "Decision Desk HQ – previsão Governador",
+   "url": "https://votes.decisiondeskhq.com/forecast/2026/governor"
+  },
+  {
+   "name": "NBC News – resultados",
+   "url": "https://www.nbcnews.com/politics/2026-elections/senate-results"
+  },
+  {
+   "name": "CBS News – ao vivo",
+   "url": "https://www.cbsnews.com/live-updates/senate-election-results-2026/"
+  },
+  {
+   "name": "CNBC – ao vivo (projeções AP)",
+   "url": "https://cnbc.com/2026/11/03/midterm-elections-2026-live-updates.html"
+  }
+ ]
+}
