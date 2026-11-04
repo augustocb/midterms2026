@@ -9,12 +9,8 @@ import sys
 
 UTC = dt.timezone.utc
 # (até quando, intervalo em minutos)
-AGENDA = [
-    (dt.datetime(2026, 11, 4, 6, 0, tzinfo=UTC), 10),    # até 03h de Brasília
-    (dt.datetime(2026, 11, 4, 11, 0, tzinfo=UTC), None), # pausa até 08h de Brasília
-    (dt.datetime(2026, 11, 4, 15, 0, tzinfo=UTC), 10),   # até 12h de Brasília
-    (dt.datetime(2026, 11, 4, 23, 0, tzinfo=UTC), 30),   # até 20h de Brasília
-]
+# Encerrada em 4/11 às 10h de Brasília, a pedido: nenhuma rodada automática.
+AGENDA = []
 
 
 def active(now):
@@ -42,5 +38,5 @@ if __name__ == "__main__":
     now = dt.datetime.now(UTC)
     if len(sys.argv) > 1:
         now = dt.datetime.fromisoformat(sys.argv[1].replace("Z", "+00:00"))
-    nxt = next_run(now)
+    nxt = next_run(now) if AGENDA else None
     print("STOP" if nxt is None else max(1, int((nxt - now).total_seconds())))
