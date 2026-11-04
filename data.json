@@ -61,17 +61,20 @@
   "AL": {
    "party": "R",
    "chance": "95%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "AK": {
    "party": "D",
    "chance": "61%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "AR": {
    "party": "R",
    "chance": "96%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "NC": {
    "party": "D",
@@ -79,7 +82,8 @@
    "called": true,
    "winner": "Roy Cooper",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   },
   "SC": {
    "party": "R",
@@ -87,7 +91,8 @@
    "called": true,
    "winner": "Annie Andrews",
    "winnerParty": "D",
-   "calledBy": "CBS"
+   "calledBy": "CBS",
+   "holder": "R"
   },
   "CO": {
    "party": "D",
@@ -95,12 +100,14 @@
    "called": true,
    "winner": "John Hickenlooper",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "SD": {
    "party": "R",
    "chance": "95%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "DE": {
    "party": "D",
@@ -108,7 +115,8 @@
    "called": true,
    "winner": "Chris Coons",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "FL": {
    "party": "R",
@@ -116,7 +124,8 @@
    "called": true,
    "winner": "Ashley Moody",
    "winnerParty": "R",
-   "calledBy": "NBC"
+   "calledBy": "NBC",
+   "holder": "R"
   },
   "GA": {
    "party": "D",
@@ -124,12 +133,14 @@
    "called": true,
    "winner": "Jon Ossoff",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "ID": {
    "party": "R",
    "chance": "98%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "IL": {
    "party": "D",
@@ -137,17 +148,20 @@
    "called": true,
    "winner": "Juliana Stratton",
    "winnerParty": "D",
-   "calledBy": "NBC"
+   "calledBy": "NBC",
+   "holder": "D"
   },
   "IA": {
    "party": "D",
    "chance": "53%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "KS": {
    "party": "D",
    "chance": "51%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "KY": {
    "party": "R",
@@ -155,17 +169,20 @@
    "called": true,
    "winner": "Andy Barr",
    "winnerParty": "R",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   },
   "LA": {
    "party": "R",
    "chance": "86%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "ME": {
    "party": "D",
    "chance": "65%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "MA": {
    "party": "D",
@@ -173,32 +190,38 @@
    "called": true,
    "winner": "Ed Markey",
    "winnerParty": "D",
-   "calledBy": "NBC/CBS"
+   "calledBy": "NBC/CBS",
+   "holder": "D"
   },
   "MI": {
    "party": "D",
    "chance": "75%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "MN": {
    "party": "D",
    "chance": "85%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "MS": {
    "party": "R",
    "chance": "90%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "MT": {
    "party": "R",
    "chance": "77%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "NE": {
    "party": "R",
    "chance": "73%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "NH": {
    "party": "D",
@@ -206,7 +229,8 @@
    "called": true,
    "winner": "Chris Pappas",
    "winnerParty": "D",
-   "calledBy": "NBC/CBS"
+   "calledBy": "NBC/CBS",
+   "holder": "D"
   },
   "NJ": {
    "party": "D",
@@ -214,7 +238,8 @@
    "called": true,
    "winner": "Cory Booker",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "NM": {
    "party": "D",
@@ -222,12 +247,14 @@
    "called": true,
    "winner": "Ben Ray Luján",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "OH": {
    "party": "D",
    "chance": "54%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "OK": {
    "party": "R",
@@ -235,12 +262,14 @@
    "called": true,
    "winner": "Kevin Hern",
    "winnerParty": "R",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   },
   "OR": {
    "party": "D",
    "chance": "99%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "RI": {
    "party": "D",
@@ -248,17 +277,20 @@
    "called": true,
    "winner": "Jack Reed",
    "winnerParty": "D",
-   "calledBy": "NBC/CBS"
+   "calledBy": "NBC/CBS",
+   "holder": "D"
   },
   "TN": {
    "party": "R",
    "chance": "97%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "TX": {
    "party": "D",
    "chance": "62%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "VA": {
    "party": "D",
@@ -266,7 +298,8 @@
    "called": true,
    "winner": "Mark Warner",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "WV": {
    "party": "R",
@@ -274,7 +307,8 @@
    "called": true,
    "winner": "Shelley Moore Capito",
    "winnerParty": "R",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   },
   "WY": {
    "party": "R",
@@ -282,39 +316,46 @@
    "called": true,
    "winner": "Harriet Hageman",
    "winnerParty": "R",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   }
  },
  "governor": {
   "AL": {
    "party": "R",
    "chance": "92%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "AK": {
    "party": "D",
    "chance": "71%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "AZ": {
    "party": "D",
    "chance": "76%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "AR": {
    "party": "R",
    "chance": "98%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "CA": {
    "party": "D",
    "chance": "98%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "SC": {
    "party": "R",
    "chance": "77%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "CO": {
    "party": "D",
@@ -322,7 +363,8 @@
    "called": true,
    "winner": "Phil Weiser",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "CT": {
    "party": "D",
@@ -330,12 +372,14 @@
    "called": true,
    "winner": "Ned Lamont",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "SD": {
    "party": "R",
    "chance": "97%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "FL": {
    "party": "R",
@@ -343,7 +387,8 @@
    "called": true,
    "winner": "Byron Donalds",
    "winnerParty": "R",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   },
   "GA": {
    "party": "D",
@@ -351,17 +396,20 @@
    "called": true,
    "winner": "Keisha Lance Bottoms",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   },
   "HI": {
    "party": "D",
    "chance": "99%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "ID": {
    "party": "R",
    "chance": ">99%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "IL": {
    "party": "D",
@@ -369,22 +417,26 @@
    "called": true,
    "winner": "JB Pritzker",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "IA": {
    "party": "D",
    "chance": "71%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "KS": {
    "party": "R",
    "chance": "61%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "ME": {
    "party": "D",
    "chance": "85%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "MD": {
    "party": "D",
@@ -392,7 +444,8 @@
    "called": true,
    "winner": "Wes Moore",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "MA": {
    "party": "D",
@@ -400,32 +453,38 @@
    "called": true,
    "winner": "Maura Healey",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "MI": {
    "party": "D",
    "chance": "79%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "MN": {
    "party": "D",
    "chance": "91%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "NE": {
    "party": "R",
    "chance": "80%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "NV": {
    "party": "D",
    "chance": "57%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "NH": {
    "party": "R",
    "chance": "67%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "NY": {
    "party": "D",
@@ -433,27 +492,32 @@
    "called": true,
    "winner": "Kathy Hochul",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "NM": {
    "party": "D",
    "chance": "87%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "OH": {
    "party": "D",
    "chance": "63%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "OK": {
    "party": "R",
    "chance": "95%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "OR": {
    "party": "D",
    "chance": "81%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "PA": {
    "party": "D",
@@ -461,7 +525,8 @@
    "called": true,
    "winner": "Josh Shapiro",
    "winnerParty": "D",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "D"
   },
   "RI": {
    "party": "D",
@@ -469,27 +534,32 @@
    "called": true,
    "winner": "Helena Foulkes",
    "winnerParty": "D",
-   "calledBy": "NBC"
+   "calledBy": "NBC",
+   "holder": "D"
   },
   "TN": {
    "party": "R",
    "chance": "93%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "TX": {
    "party": "R",
    "chance": "69%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "VT": {
    "party": "R",
    "chance": "90%",
-   "called": false
+   "called": false,
+   "holder": "R"
   },
   "WI": {
    "party": "D",
    "chance": "73%",
-   "called": false
+   "called": false,
+   "holder": "D"
   },
   "WY": {
    "party": "R",
@@ -497,7 +567,8 @@
    "called": true,
    "winner": "Eric Barlow",
    "winnerParty": "R",
-   "calledBy": "AP"
+   "calledBy": "AP",
+   "holder": "R"
   }
  },
  "sources": [
