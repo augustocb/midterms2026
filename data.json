@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T04:52:03Z",
- "statusNote": "Projeções conferidas até 00:01 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T05:12:55Z",
+ "statusNote": "Projeções conferidas até 00:12 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -393,8 +393,11 @@
   "SC": {
    "party": "R",
    "chance": "77%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Alan Wilson",
+   "winnerParty": "R",
+   "calledBy": "Decision Desk HQ"
   },
   "CO": {
    "party": "D",
@@ -444,8 +447,11 @@
   "HI": {
    "party": "D",
    "chance": "99%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Josh Green",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "ID": {
    "party": "R",
@@ -567,8 +573,11 @@
   "OK": {
    "party": "R",
    "chance": "95%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Mike Mazzei",
+   "winnerParty": "R",
+   "calledBy": "Decision Desk HQ"
   },
   "OR": {
    "party": "D",
@@ -660,5 +669,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T05:01:52Z"
+ "checked": "2026-11-04T05:12:55Z"
 }
