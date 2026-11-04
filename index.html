@@ -119,7 +119,6 @@ tbody tr:hover td{background:var(--hover)}
   <div class="sub">
     <span class="live"><i></i>Ao vivo</span>
     <span id="upd">Atualizado —</span>
-    <span id="chk"></span>
   </div>
   <div class="err" id="err">Não foi possível buscar a atualização mais recente; mostrando os últimos dados carregados.</div>
 
@@ -286,7 +285,6 @@ async function load(manual){
   }catch(e){
     document.getElementById("err").style.display="block";
   }
-  document.getElementById("chk").textContent="Página checada às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 }
 
 document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>{
