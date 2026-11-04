@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T06:45:53Z",
- "statusNote": "Projeções conferidas até 01:44 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T11:00:47Z",
+ "statusNote": "Projeções conferidas até 06:00 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -220,8 +220,11 @@
   "MI": {
    "party": "D",
    "chance": "75%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Abdul El-Sayed",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "MN": {
    "party": "D",
@@ -250,8 +253,11 @@
   "NE": {
    "party": "R",
    "chance": "73%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Pete Ricketts",
+   "winnerParty": "R",
+   "calledBy": "CBS"
   },
   "NH": {
    "party": "D",
@@ -549,8 +555,11 @@
   "NE": {
    "party": "R",
    "chance": "80%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Jim Pillen",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "NV": {
    "party": "D",
@@ -702,5 +711,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T06:45:53Z"
+ "checked": "2026-11-04T11:00:47Z"
 }
