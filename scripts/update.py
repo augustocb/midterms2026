@@ -35,8 +35,18 @@ def call_api(prompt, key):
         data=json.dumps(body).encode(),
         headers={"x-goog-api-key": key, "content-type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=300) as r:
-        return json.load(r)
+    import time, urllib.error
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=300) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            detail = e.read().decode(errors="replace")[:1500]
+            print(f"::warning::Gemini HTTP {e.code}: {detail}")
+            if e.code in (429, 500, 503) and attempt < 2:
+                time.sleep(20 * (attempt + 1))
+                continue
+            raise SystemExit(f"Gemini falhou com HTTP {e.code}")
 
 
 def build_prompt(data):
