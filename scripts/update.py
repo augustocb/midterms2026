@@ -173,7 +173,7 @@ def main():
         return 0
     sys.path.insert(0, os.path.dirname(__file__))
     import interval
-    if not interval.active(dt.datetime.now(dt.timezone.utc)):
+    if not os.environ.get("FORCE_RUN") and not interval.active(dt.datetime.now(dt.timezone.utc)):
         print("Fora do horário da agenda (pausa); nada a fazer.")
         return 0
     data = json.load(open(DATA, encoding="utf-8"))
