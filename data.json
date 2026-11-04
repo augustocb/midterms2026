@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T03:46:14Z",
- "statusNote": "Projeções conferidas até 22:44 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T04:01:51Z",
+ "statusNote": "Projeções conferidas até 23:00 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -61,8 +61,11 @@
   "AL": {
    "party": "R",
    "chance": "95%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Barry Moore",
+   "winnerParty": "R",
+   "calledBy": "NBC"
   },
   "AK": {
    "party": "D",
@@ -73,8 +76,11 @@
   "AR": {
    "party": "R",
    "chance": "96%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Tom Cotton",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "NC": {
    "party": "D",
@@ -283,8 +289,11 @@
   "TN": {
    "party": "R",
    "chance": "97%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Bill Hagerty",
+   "winnerParty": "R",
+   "calledBy": "NBC"
   },
   "TX": {
    "party": "D",
@@ -339,8 +348,11 @@
   "AZ": {
    "party": "D",
    "chance": "76%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Katie Hobbs",
+   "winnerParty": "D",
+   "calledBy": "CBS"
   },
   "AR": {
    "party": "R",
@@ -510,8 +522,11 @@
   "OH": {
    "party": "D",
    "chance": "63%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Amy Acton",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "OK": {
    "party": "R",
@@ -603,5 +618,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T03:46:14Z"
+ "checked": "2026-11-04T04:01:51Z"
 }
