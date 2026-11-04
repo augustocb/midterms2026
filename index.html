@@ -25,7 +25,9 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 @keyframes p{70%{box-shadow:0 0 0 7px #16a34a00}100%{box-shadow:0 0 0 0 #16a34a00}}
 .sec{font:600 clamp(19px,3.6vw,25px)/1.2 Fraunces,Georgia,serif;color:var(--fg);margin:26px 0 10px}
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
-@media (min-width:601px){.cards{grid-template-columns:repeat(4,1fr)}.cards .card.cr{order:4}}
+.if-done{display:none}
+body.all-done .if-open{display:none}body.all-done .if-done{display:inline}
+@media (min-width:601px){.cards{grid-template-columns:repeat(4,1fr)}.cards .card.cr{order:4}.cards.done{grid-template-columns:repeat(2,1fr)}}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .card .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .card .v{font:600 28px/1.1 Fraunces,Georgia,serif;margin-top:4px}
@@ -173,12 +175,12 @@ tbody tr:hover td{background:var(--hover)}
   <div class="map">
     <div class="legend">
       <span><b style="background:var(--d)" title="DEM"></b><b style="background:var(--r)" title="REP"></b>Projetado</span>
-      <span><b style="background:var(--d-soft)" title="DEM"></b><b style="background:var(--r-soft)" title="REP"></b>Favorito</span>
+      <span class="if-open"><b style="background:var(--d-soft)" title="DEM"></b><b style="background:var(--r-soft)" title="REP"></b>Favorito</span>
       <span><b style="background:var(--none)"></b>Sem eleição</span>
       <span><i class="leg-flip"></i>Flip (cadeira muda de partido)</span>
       <span><i class="leg-up" style="background:linear-gradient(90deg,var(--d) 50%,var(--r) 50%)"></i>Cor do favorito, quando o projetado foi outro</span>
     </div>
-    <div class="key"><div class="mini"><span>S</span><span>G</span></div>✓ = projetado · número = % de chance do favorito</div>
+    <div class="key"><div class="mini"><span>S</span><span>G</span></div><span class="if-open">✓ = projetado · número = % de chance do favorito</span><span class="if-done">Em cima, Senado; embaixo, Governador</span></div>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -194,7 +196,7 @@ tbody tr:hover td{background:var(--hover)}
   <div class="filters" id="filters">
     <button class="on" data-f="all">Todos</button>
     <button data-f="called">Projetados</button>
-    <button data-f="open">Em aberto</button>
+    <button data-f="open" class="if-open">Em aberto</button>
   </div>
   <table>
     <thead><tr><th><span class="st-full">Estado</span><abbr class="st-ab" title="Estado">Est.</abbr></th><th>Senado</th><th>Governador</th></tr></thead>
@@ -220,7 +222,8 @@ let DATA=null,filter="all",sel=null,selFrom="map",lastUpdated=null;
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
 function fmtTime(iso){try{return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}catch(e){return iso}}
 function tally(races){const c={D:0,R:0},f={D:0,R:0};for(const k in races){const r=races[k];if(r.called)c[r.winnerParty]++;else f[r.party]++}return {c,f}}
-function val(r){return !r?"":r.called?"✓":r.chance.replace("%","")}
+function val(r){return !r?"":r.called?(allDone()?"":"✓"):r.chance.replace("%","")}
+function allDone(){return !!DATA&&["senate","governor"].every(o=>Object.values(DATA[o]||{}).every(r=>r.called))}
 function isUpset(r){return !!(r&&r.called&&r.winnerParty!==r.party)}
 function half(r){const d=el("div","h "+cls(r)+(isFlip(r)?" fl":""),val(r));if(isUpset(r))d.append(el("span","up "+r.party));return d}
 function isFlip(r){return !!(r&&r.called&&r.holder&&r.winnerParty!==r.holder)}
@@ -229,7 +232,7 @@ function cls(r){return !r?"N":r.called?r.winnerParty+"1":r.party+"0"}
 function side(name,n,fav,al){
   const s=el("span","side "+al);const b=el("b");const pt=el("span","pt",name);
   if(al==="r")b.append(document.createTextNode(String(n)),pt);else b.append(pt,document.createTextNode(String(n)));s.append(b);
-  s.append(el("small",null,"+"+fav+" favorito"+(fav===1?"":"s")));return s;
+  if(fav>0)s.append(el("small",null,"+"+fav+" favorito"+(fav===1?"":"s")));return s;
 }
 function barKey(rows){
   const k=el("div","legend bk");
@@ -244,7 +247,9 @@ function summary(kind,cardsId,barId){
   const cards=document.getElementById(cardsId);cards.replaceChildren();
   const mk=(k,v,s,cl)=>{const d=el("div","card"+(cl?" "+cl:""));d.append(el("div","k",k));const vv=el("div","v");if(v instanceof Node)vv.append(v);else vv.textContent=String(v);if(s)vv.append(el("small",null," "+s));d.append(vv);return d};
   const fin=document.createDocumentFragment();fin.append(el("span","nd",String(c.D+f.D)),el("span","dash","–"),el("span","nr",String(c.R+f.R)));
-  cards.append(mk("Projetados DEM",c.D,null,"cd"),mk("Projetados REP",c.R,null,"cr"),mk("Em aberto",open,"de "+total),mk("Previsão final",fin));
+  cards.classList.toggle("done",open===0);
+  cards.append(mk("Projetados DEM",c.D,null,"cd"),mk("Projetados REP",c.R,null,"cr"));
+  if(open>0)cards.append(mk("Em aberto",open,"de "+total),mk("Previsão final",fin));
   const bar=document.getElementById(barId);bar.replaceChildren();
   const seg=(w,col,tip,n)=>{const s=el("span");s.style.width=w+"%";s.style.background=col;if(tip){s.dataset.tip=tip;s.dataset.n=n}return s};
   const lbl=el("div","lbl"),tr=el("div","track");
@@ -259,12 +264,14 @@ function summary(kind,cardsId,barId){
   bar.append(lbl,tr,barKey([
     ["var(--d-dark)","var(--r-dark)","Já eleitos (fora de disputa)",h.D,h.R],
     ["var(--d)","var(--r)","Projetados hoje",c.D,c.R],
-    ["var(--d-soft)","var(--r-soft)","Favoritos (ainda em aberto)",f.D,f.R]]));
+    ...(open>0?[["var(--d-soft)","var(--r-soft)","Favoritos (ainda em aberto)",f.D,f.R]]:[])]));
   if(isS)bar.append(el("div","legend","Independentes alinhados ao DEM contam como DEM."));
 }
 
 function render(){
   if(!DATA)return;
+  document.body.classList.toggle("all-done",allDone());
+  if(allDone()&&filter==="open"){filter="all";document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x.dataset.f==="all"))}
   document.getElementById("upd").textContent="Atualizado em "+fmtTime(DATA.checked||DATA.updated);
   document.getElementById("statusNote").textContent=DATA.statusNote||"";
   summary("senate","cardsS","barS");summary("governor","cardsG","barG");
