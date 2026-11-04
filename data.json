@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T04:01:51Z",
+ "updated": "2026-11-04T04:13:53Z",
  "statusNote": "Projeções conferidas até 23:11 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
@@ -259,8 +259,11 @@
   "OH": {
    "party": "D",
    "chance": "54%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Sherrod Brown",
+   "winnerParty": "D",
+   "calledBy": "CBS"
   },
   "OK": {
    "party": "R",
@@ -438,8 +441,11 @@
   "IA": {
    "party": "D",
    "chance": "71%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Rob Sand",
+   "winnerParty": "D",
+   "calledBy": "NBC"
   },
   "KS": {
    "party": "R",
@@ -567,8 +573,11 @@
   "TX": {
    "party": "R",
    "chance": "69%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Gina Hinojosa",
+   "winnerParty": "D",
+   "calledBy": "NBC"
   },
   "VT": {
    "party": "R",
@@ -579,8 +588,11 @@
   "WI": {
    "party": "D",
    "chance": "73%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "David Crowley",
+   "winnerParty": "D",
+   "calledBy": "NBC"
   },
   "WY": {
    "party": "R",
@@ -618,5 +630,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T04:12:59Z"
+ "checked": "2026-11-04T04:13:53Z"
 }

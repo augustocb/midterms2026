@@ -48,12 +48,14 @@ def call_api(prompt, key):
             raise SystemExit(f"Gemini falhou com HTTP {e.code}")
 
 
-def build_prompt(data):
+def build_prompt(data, only=None):
     open_races = []
     called = []
     for office, label in (("senate", "Senado"), ("governor", "Governador")):
         for st, r in sorted(data[office].items()):
             name = data["states"][st]
+            if only is not None and (office, st) not in only and not r.get("called"):
+                continue
             if r.get("called"):
                 called.append(f"{label} {st} ({name}): {r['winner']} ({r['winnerParty']}), {r['calledBy']}")
             else:
@@ -69,7 +71,7 @@ Já marcadas como projetadas (confira só se viu notícia de projeção retirada
 {chr(10).join(called) or "(nenhuma)"}
 
 Regras:
-- Faça buscas separadas para Senado e governador, e busque especificamente as disputas em aberto mais relevantes.
+- Busque CADA disputa em aberto listada acima individualmente (ex.: \"<estado> senate race called\", \"<estado> governor projected winner\").
 - Inclua uma disputa só se uma fonte que você encontrou disser explicitamente que um veículo projetou/declarou o vencedor. Liderança na contagem NÃO é projeção.
 - Não use conhecimento de memória.
 - Para independentes, use em "party" o partido com que se alinham e acrescente " (I)" ao nome.
@@ -92,8 +94,32 @@ def walk(node):
             yield from walk(v)
 
 
+CHUNK = int(os.environ.get("CHUNK_SIZE", "8"))
+
+
 def run_model(data, key):
-    resp = call_api(build_prompt(data), key)
+    """Confere as disputas em aberto em grupos, cada grupo com buscas próprias."""
+    open_races = [(o, st) for o in ("senate", "governor") for st, r in sorted(data[o].items()) if not r.get("called")]
+    calls, retracted, et, ok = [], [], None, 0
+    for i in range(0, len(open_races), CHUNK):
+        group = set(open_races[i:i + CHUNK])
+        print(f"Grupo {i // CHUNK + 1}: {', '.join(f'{o[:3]}-{st}' for o, st in sorted(group))}")
+        try:
+            res = run_group(data, key, group)
+        except SystemExit as e:
+            print(f"::warning::grupo ignorado: {e}")
+            continue
+        ok += 1
+        calls += res.get("calls", [])
+        retracted += res.get("retracted", [])
+        et = res.get("checkedThroughET") or et
+    if not ok:
+        raise SystemExit("Nenhum grupo com busca válida; nenhuma mudança aplicada.")
+    return {"calls": calls, "retracted": retracted, "checkedThroughET": et}
+
+
+def run_group(data, key, group):
+    resp = call_api(build_prompt(data, group), key)
     queries, results, texts = [], 0, []
     for n in walk(resp):
         t = n.get("type")
