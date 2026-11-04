@@ -96,6 +96,20 @@ td:first-child{hyphens:auto;-webkit-hyphens:auto}
 .nm{display:inline-flex;align-items:baseline;gap:5px}
 .favline{flex-basis:100%;display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500;margin:1px 0}
 .favline .dot{width:7px;height:7px}
+.favline.inl{flex-basis:auto;font-size:inherit;margin:0 4px 0 0}
+.favline.inl .dot{width:10px;height:10px}
+@media (max-width:600px){
+  .favline.inl .dot{width:8px;height:8px}
+  td .pill{display:block;line-height:1.45}
+  td .pill .favline.inl,td .pill .nm{display:inline}
+  td .pill .dot{display:inline-block;margin-right:4px;vertical-align:0}
+  td .pill .favline.inl{margin-right:5px;font-size:11px}
+  td .pill .favline.inl .dot{width:7px;height:7px;margin-right:3px}
+  td .pill .nm{white-space:nowrap}
+  td .pill .tag{display:inline-block;margin:3px 4px 0 0}
+  td .pill .nm+.tag{margin-left:2px}
+  th:first-child,td:first-child{width:24%}
+}
 .dot.soft.D{background:var(--d-soft)}.dot.soft.R{background:var(--r-soft)}
 .nm .pct{font-weight:500;color:var(--muted)}
 .nm .dot{flex:none;transform:translateY(-1px)}
@@ -310,7 +324,7 @@ function describe(r,compact){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
   const nm=el("span","nm");
   if(compact&&!r.called){nm.append(el("span","dot soft "+p),el("span","pct",r.chance));w.append(nm);return w}
-  if(compact){w.append(favLine(r));nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,el("span","tag ok","✓ "+r.calledBy));
+  if(compact){const fl=favLine(r);fl.classList.add("inl");w.append(fl);nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,el("span","tag ok","✓ "+r.calledBy));
     if(isFlip(r))w.append(flipTag(r));return w}
   if(!r.called){nm.append(el("span","dot soft "+p),el("span",null,PARTY[p]));w.append(nm,el("span","tag","Favorito · "+r.chance));return w}
   nm.append(el("span","dot "+p),el("span",null,r.winner+" ("+PARTY[p]+")"));
