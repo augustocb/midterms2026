@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T05:31:11Z",
- "statusNote": "Projeções conferidas até 00:30 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T05:41:36Z",
+ "statusNote": "Projeções conferidas até 00:41 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -190,8 +190,11 @@
   "LA": {
    "party": "R",
    "chance": "86%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Julia Letlow",
+   "winnerParty": "R",
+   "calledBy": "AP"
   },
   "ME": {
    "party": "D",
@@ -681,5 +684,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T05:31:11Z"
+ "checked": "2026-11-04T05:41:36Z"
 }
