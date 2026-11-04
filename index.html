@@ -30,7 +30,12 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .card .v{font:600 28px/1.1 Fraunces,Georgia,serif;margin-top:4px}
 .card .v small{font:500 13px Inter,sans-serif;color:var(--muted)}
 .bar{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
-.bar .lbl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.bar .lbl{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;font-size:13px;margin-bottom:8px}
+.bar .side{display:flex;flex-direction:column;line-height:1.3}
+.bar .side.r{text-align:right}
+.bar .side b{font-weight:600}
+.bar .side small{color:var(--muted);font-size:12px}
+.bar .ctr{color:var(--muted);font-size:12px;text-align:center}
 .track{position:relative;height:22px;border-radius:6px;overflow:hidden;display:flex;background:var(--none)}
 .track span{height:100%}
 .mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--fg);opacity:.6}
@@ -157,6 +162,17 @@ function tally(races){const c={D:0,R:0},f={D:0,R:0};for(const k in races){const 
 function val(r){return !r?"":r.called?"✓":r.chance.replace("%","")}
 function cls(r){return !r?"N":r.called?r.winnerParty+"1":r.party+"0"}
 
+function side(name,n,fav,al){
+  const s=el("span","side "+al);s.append(el("b",null,name+" "+n));
+  s.append(el("small",null,"+"+fav+" favorito"+(fav===1?"":"s")));return s;
+}
+function barKey(first){
+  const k=el("div","legend");
+  for(const [c,t] of [["var(--d)",first],["var(--d-soft)","Favorito (+)"]]){const s=el("span");const b=el("b");b.style.background=c;s.append(b,document.createTextNode(t));k.append(s)}
+  k.firstChild.firstChild.style.background="linear-gradient(90deg,var(--d) 50%,var(--r) 50%)";
+  k.lastChild.firstChild.style.background="linear-gradient(90deg,var(--d-soft) 50%,var(--r-soft) 50%)";
+  return k;
+}
 function summary(kind,cardsId,barId){
   const races=DATA[kind]||{};const {c,f}=tally(races);const total=Object.keys(races).length,open=total-c.D-c.R;
   const cards=document.getElementById(cardsId);cards.replaceChildren();
@@ -167,13 +183,14 @@ function summary(kind,cardsId,barId){
   const lbl=el("div","lbl"),tr=el("div","track");
   if(kind==="senate"){
     const h=DATA.senateHoldover||{D:0,R:0},D=h.D+c.D,R=h.R+c.R;
-    lbl.append(el("span",null,"Democratas "+D),el("span",null,"51 para maioria"),el("span",null,R+" Republicanos"));
-    tr.append(seg(D,"var(--d)"),seg(100-D-R,"var(--none)"),seg(R,"var(--r)"),el("div","mid"));
-    bar.append(lbl,tr,el("div","legend",`Inclui as cadeiras fora de disputa este ano (${h.D} D, contando independentes que votam com os democratas, e ${h.R} R).`));
+    lbl.append(side("Democratas",D,f.D,"l"),el("span","ctr","51 para maioria"),side("Republicanos",R,f.R,"r"));
+    tr.append(seg(D,"var(--d)"),seg(f.D,"var(--d-soft)"),seg(100-D-R-f.D-f.R,"var(--none)"),seg(f.R,"var(--r-soft)"),seg(R,"var(--r)"),el("div","mid"));
+    bar.append(lbl,tr,barKey("Projetado / fora de disputa"),el("div","legend",`Inclui as cadeiras fora de disputa este ano (${h.D} D, contando independentes que votam com os democratas, e ${h.R} R).`));
   }else{
-    lbl.append(el("span",null,"Projetados D "+c.D),el("span",null,total+" disputas"),el("span",null,c.R+" projetados R"));
-    tr.append(seg(c.D/total*100,"var(--d)"),seg((total-c.D-c.R)/total*100,"var(--none)"),seg(c.R/total*100,"var(--r)"));
-    bar.append(lbl,tr);
+    const pc=n=>n/total*100;
+    lbl.append(side("Democratas",c.D,f.D,"l"),el("span","ctr",total+" disputas"),side("Republicanos",c.R,f.R,"r"));
+    tr.append(seg(pc(c.D),"var(--d)"),seg(pc(f.D),"var(--d-soft)"),seg(pc(total-c.D-c.R-f.D-f.R),"var(--none)"),seg(pc(f.R),"var(--r-soft)"),seg(pc(c.R),"var(--r)"));
+    bar.append(lbl,tr,barKey("Projetado"));
   }
 }
 
