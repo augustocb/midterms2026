@@ -23,7 +23,7 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .live{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--fg)}
 .live i{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 #16a34a88;animation:p 2s infinite}
 @keyframes p{70%{box-shadow:0 0 0 7px #16a34a00}100%{box-shadow:0 0 0 0 #16a34a00}}
-.sec{font:600 13px Inter,sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:4px 0 6px}
+.sec{font:600 clamp(19px,3.6vw,25px)/1.2 Fraunces,Georgia,serif;color:var(--fg);margin:26px 0 10px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .card .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
@@ -137,13 +137,14 @@ tbody tr:hover td{background:var(--hover)}
     <div class="pop" id="pop" hidden></div>
   </div>
 
-  <div class="sec">Senado</div>
+  <h2 class="sec">Senado</h2>
   <div class="cards" id="cardsS"></div>
   <div class="bar" id="barS"></div>
-  <div class="sec">Governador</div>
+  <h2 class="sec">Governador</h2>
   <div class="cards" id="cardsG"></div>
   <div class="bar" id="barG"></div>
 
+  <h2 class="sec">Tabela geral</h2>
   <div class="filters" id="filters">
     <button class="on" data-f="all">Todos</button>
     <button data-f="called">Projetados</button>
