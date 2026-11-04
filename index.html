@@ -82,7 +82,7 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .key .mini{flex:none;width:22px;height:28px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line)}
 .key .mini span{flex:1;font-size:8px;display:flex;align-items:center;justify-content:center;color:var(--fg)}
 .key .mini span+span{border-top:1px solid var(--line)}
-.pop{position:absolute;z-index:5;width:min(230px,calc(100% - 16px));background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 28px #0003;padding:8px 10px;font-size:12.5px}
+.pop{position:absolute;z-index:20;width:min(230px,calc(100vw - 16px));background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 28px #0003;padding:8px 10px;font-size:12.5px}
 .pop .ttl{font-weight:700;margin-bottom:4px;font-size:14px;padding-right:22px}
 .pop .row{margin:0;padding:8px 0}
 .pop .row+.row{border-top:1px solid var(--line)}
@@ -109,6 +109,9 @@ td:first-child{hyphens:auto;-webkit-hyphens:auto}
   td .pill .nm{white-space:nowrap}
   td .pill .tag{display:inline-block;margin:3px 4px 0 0}
   td .pill .nm+.tag{margin-left:2px}
+  td .favline.inl .fpct{display:none}
+  td .nm-full{display:none}td .nm-short{display:inline}
+  tbody tr{cursor:pointer}
   th:first-child,td:first-child{width:13%}
   .st-full{display:none}
   .st-ab{display:inline;text-decoration:none;font-weight:600}
@@ -129,7 +132,12 @@ td:first-child{hyphens:auto;-webkit-hyphens:auto}
   .map .legend{padding:0 4px}
   .map .key{padding:0 4px}
 }
-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:14px}
+thead th{position:sticky;top:0;z-index:3;background:var(--panel)}
+thead th:first-child{border-top-left-radius:14px}thead th:last-child{border-top-right-radius:14px}
+tbody tr:last-child td:first-child{border-bottom-left-radius:14px}tbody tr:last-child td:last-child{border-bottom-right-radius:14px}
+tbody tr.sel td{background:var(--hover)}
+.nm-short{display:none}
 th{text-align:left;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid var(--line)}
 td{padding:8px 10px;font-size:13px;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:0}
@@ -169,7 +177,6 @@ tbody tr:hover td{background:var(--hover)}
     </div>
     <div class="key"><div class="mini"><span>S</span><span>G</span></div>✓ = projetado · número = % de chance do favorito</div>
     <div class="grid" id="grid"></div>
-    <div class="pop" id="pop" hidden></div>
   </div>
 
   <h2 class="sec">Senado</h2>
@@ -179,6 +186,7 @@ tbody tr:hover td{background:var(--hover)}
   <div class="cards" id="cardsG"></div>
   <div class="bar" id="barG"></div>
 
+  <div class="pop" id="pop" hidden></div>
   <h2 class="sec">Tabela geral</h2>
   <div class="filters" id="filters">
     <button class="on" data-f="all">Todos</button>
@@ -204,7 +212,7 @@ OK:[6,4],LA:[6,5],MS:[6,6],AL:[6,7],GA:[6,8],
 HI:[7,0],TX:[7,4],FL:[7,9]};
 const RAW="https://raw.githubusercontent.com/augustocb/midterms2026/main/data.json";
 const PARTY={D:"DEM",R:"REP"};
-let DATA=null,filter="all",sel=null,lastUpdated=null;
+let DATA=null,filter="all",sel=null,selFrom="map",lastUpdated=null;
 
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
 function fmtTime(iso){try{return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}catch(e){return iso}}
@@ -262,9 +270,9 @@ function render(){
   for(const code in TILES){
     const [r,col]=TILES[code];const t=el("div","t");t.style.gridRow=r+1;t.style.gridColumn=col+1;
     t.append(el("div","code",code),half(S[code]),half(G[code]));
-    if(sel===code)t.classList.add("sel");
+    if(sel===code&&selFrom==="map")t.classList.add("sel");
     t.dataset.code=code;
-    t.addEventListener("click",e=>{e.stopPropagation();sel=(sel===code?null:code);render()});
+    t.addEventListener("click",e=>{e.stopPropagation();if(sel===code&&selFrom==="map"){sel=null}else{sel=code;selFrom="map"}render()});
     grid.append(t);
   }
   showPop();
@@ -276,7 +284,9 @@ function render(){
     const rs=[S[code],G[code]].filter(Boolean);
     if(filter==="called"&&!rs.some(r=>r.called))continue;
     if(filter==="open"&&!rs.some(r=>!r.called))continue;
-    const tr=el("tr");{const td=el("td");const a=el("abbr","st-ab",code);a.title=DATA.states[code];td.append(el("span","st-full",DATA.states[code]),a);tr.append(td)}
+    const tr=el("tr");tr.dataset.code=code;if(sel===code&&selFrom==="table")tr.classList.add("sel");
+    tr.addEventListener("click",e=>{if(!matchMedia("(max-width:600px)").matches)return;e.stopPropagation();if(sel===code&&selFrom==="table"){sel=null}else{sel=code;selFrom="table"}render()});
+    {const td=el("td");const a=el("abbr","st-ab",code);a.title=DATA.states[code];td.append(el("span","st-full",DATA.states[code]),a);tr.append(td)}
     for(const r of [S[code],G[code]]){const td=el("td");if(r)td.append(describe(r,true));else{td.textContent="—";td.style.color="var(--muted)"}tr.append(td)}
     tb.append(tr);
   }
@@ -286,8 +296,8 @@ function render(){
 
 function showPop(){
   const pop=document.getElementById("pop");
-  const tile=sel&&document.querySelector('.t[data-code="'+sel+'"]');
-  if(!tile){pop.hidden=true;return}
+  const anchor=sel&&document.querySelector(selFrom==="table"?'tbody tr[data-code="'+sel+'"]':'.t[data-code="'+sel+'"]');
+  if(!anchor){pop.hidden=true;return}
   const S=DATA.senate||{},G=DATA.governor||{};
   pop.replaceChildren();
   const x=el("button","x","×");x.setAttribute("aria-label","Fechar");x.addEventListener("click",e=>{e.stopPropagation();sel=null;render()});
@@ -297,12 +307,12 @@ function showPop(){
     row.append(set[sel]?describe(set[sel]):el("span",null,"Sem eleição"));pop.append(row);
   }
   pop.hidden=false;
-  const map=pop.parentElement,mr=map.getBoundingClientRect(),tr=tile.getBoundingClientRect();
+  const r=anchor.getBoundingClientRect(),vw=document.documentElement.clientWidth,vh=innerHeight;
   const pw=pop.offsetWidth,ph=pop.offsetHeight;
-  let left=tr.left-mr.left+tr.width/2-pw/2;left=Math.max(8,Math.min(left,mr.width-pw-8));
-  let top=tr.bottom-mr.top+6;
-  if(top+ph>mr.height-4&&tr.top-mr.top-ph-6>0)top=tr.top-mr.top-ph-6;
-  pop.style.left=left+"px";pop.style.top=top+"px";
+  let left=r.left+r.width/2-pw/2;left=Math.max(8,Math.min(left,vw-pw-8));
+  let top=r.bottom+6;
+  if(top+ph>vh-8&&r.top-ph-6>0)top=r.top-ph-6;
+  pop.style.left=(left+scrollX)+"px";pop.style.top=(top+scrollY)+"px";
 }
 document.addEventListener("click",e=>{if(sel&&!e.target.closest("#pop")){sel=null;render()}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sel){sel=null;render()}});
@@ -323,14 +333,15 @@ function hideTip(){document.querySelectorAll(".btip").forEach(t=>t.hidden=true);
 document.addEventListener("pointerover",e=>{if(e.pointerType!=="mouse")return;const sp=e.target.closest(".track span[data-tip]");if(sp)showTip(sp);else if(tipSeg)hideTip()});
 document.addEventListener("click",e=>{const sp=e.target.closest(".track span[data-tip]");if(sp){if(tipSeg===sp)hideTip();else showTip(sp)}else if(tipSeg)hideTip()});
 
-function favLine(r,label){const f=el("span","favline");f.append(el("span","dot soft "+r.party),document.createTextNode((label?label+PARTY[r.party]+" · ":"")+r.chance));return f}
+function favLine(r,label){const f=el("span","favline");f.append(el("span","dot soft "+r.party));if(label)f.append(document.createTextNode(label+PARTY[r.party]+" · "));f.append(el("span","fpct",r.chance));return f}
+function shortName(n){const t=n.trim().split(/\s+/);if(t.length<2)return n;let k=1;if(/^(Jr\.?|Sr\.?|II|III|IV)$/i.test(t[t.length-1])&&t.length>2)k=2;const last=t.slice(-k).join(" ");return t.slice(0,-k).map(w=>/^[A-Z]{2,3}$/.test(w)?w:w[0]+".").join("")+" "+last}
 function okTag(r,txt){const t=el("span","tag ok",txt);t.title="Projetado por "+r.calledBy;return t}
 function flipTag(r){const t=el("span","tag flip","Flip");t.title="Cadeira era "+PARTY[r.holder];return t}
 function describe(r,compact){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
   const nm=el("span","nm");
   if(compact&&!r.called){nm.append(el("span","dot soft "+p),el("span","pct",r.chance));w.append(nm);return w}
-  if(compact){const fl=favLine(r);fl.classList.add("inl");w.append(fl);nm.append(el("span","dot "+p),el("span",null,r.winner));w.append(nm,okTag(r,"✓"));
+  if(compact){const fl=favLine(r);fl.classList.add("inl");w.append(fl);nm.append(el("span","dot "+p),el("span","nm-full",r.winner),el("span","nm-short",shortName(r.winner)));w.append(nm,okTag(r,"✓"));
     if(isFlip(r))w.append(flipTag(r));return w}
   if(!r.called){nm.append(el("span","dot soft "+p),el("span",null,PARTY[p]));w.append(nm,el("span","tag","Favorito · "+r.chance));return w}
   nm.append(el("span","dot "+p),el("span",null,r.winner+" ("+PARTY[p]+")"));
