@@ -77,6 +77,7 @@ th:first-child,td:first-child{width:27%}
 td{overflow-wrap:break-word}
 td:first-child{hyphens:auto;-webkit-hyphens:auto}
 .nm{display:inline-flex;align-items:baseline;gap:5px}
+.nm .pct{font-weight:500;color:var(--muted)}
 .nm .dot{flex:none;transform:translateY(-1px)}
 @media (max-width:600px){
   th{padding:8px 6px;font-size:10.5px}
@@ -230,7 +231,7 @@ function render(){
     if(filter==="called"&&!rs.some(r=>r.called))continue;
     if(filter==="open"&&!rs.some(r=>!r.called))continue;
     const tr=el("tr");tr.append(el("td",null,DATA.states[code]));
-    for(const r of [S[code],G[code]]){const td=el("td");if(r)td.append(describe(r));else{td.textContent="—";td.style.color="var(--muted)"}tr.append(td)}
+    for(const r of [S[code],G[code]]){const td=el("td");if(r)td.append(describe(r,true));else{td.textContent="—";td.style.color="var(--muted)"}tr.append(td)}
     tb.append(tr);
   }
   const src=document.getElementById("src");src.replaceChildren(document.createTextNode("Fontes: "));
@@ -261,9 +262,11 @@ document.addEventListener("click",e=>{if(sel&&!e.target.closest("#pop")){sel=nul
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sel){sel=null;render()}});
 window.addEventListener("resize",()=>{if(sel)showPop()});
 
-function describe(r){
+function describe(r,compact){
   const w=el("span","pill");const p=r.called?r.winnerParty:r.party;
-  const nm=el("span","nm");nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+p+")":PARTY[p]));
+  const nm=el("span","nm");
+  if(compact&&!r.called){nm.append(el("span","dot "+p),el("span","pct",r.chance));w.append(nm);return w}
+  nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+p+")":PARTY[p]));
   w.append(nm,r.called?el("span","tag ok","✓ Projetado · "+r.calledBy):el("span","tag","Favorito · "+r.chance));
   return w;
 }
