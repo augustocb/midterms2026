@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T02:38:37Z",
- "statusNote": "Projeções conferidas até 21:36 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T01:35:00Z",
+ "statusNote": "Projeções de veículos até ~20h35 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -89,10 +89,7 @@
   "CO": {
    "party": "D",
    "chance": "97%",
-   "called": true,
-   "winner": "John Hickenlooper",
-   "winnerParty": "D",
-   "calledBy": "AP"
+   "called": false
   },
   "SD": {
    "party": "R",
@@ -149,10 +146,7 @@
   "KY": {
    "party": "R",
    "chance": "94%",
-   "called": true,
-   "winner": "Andy Barr",
-   "winnerParty": "R",
-   "calledBy": "AP"
+   "called": false
   },
   "LA": {
    "party": "R",
@@ -216,10 +210,7 @@
   "NM": {
    "party": "D",
    "chance": "96%",
-   "called": true,
-   "winner": "Ben Ray Luján",
-   "winnerParty": "D",
-   "calledBy": "AP"
+   "called": false
   },
   "OH": {
    "party": "D",
@@ -265,18 +256,12 @@
   "WV": {
    "party": "R",
    "chance": ">99%",
-   "called": true,
-   "winner": "Shelley Moore Capito",
-   "winnerParty": "R",
-   "calledBy": "AP"
+   "called": false
   },
   "WY": {
    "party": "R",
    "chance": "99%",
-   "called": true,
-   "winner": "Harriet Hageman",
-   "winnerParty": "R",
-   "calledBy": "AP"
+   "called": false
   }
  },
  "governor": {
@@ -313,18 +298,12 @@
   "CO": {
    "party": "D",
    "chance": "94%",
-   "called": true,
-   "winner": "Phil Weiser",
-   "winnerParty": "D",
-   "calledBy": "AP"
+   "called": false
   },
   "CT": {
    "party": "D",
    "chance": "92%",
-   "called": true,
-   "winner": "Ned Lamont",
-   "winnerParty": "D",
-   "calledBy": "AP"
+   "called": false
   },
   "SD": {
    "party": "R",
@@ -334,18 +313,12 @@
   "FL": {
    "party": "R",
    "chance": "63%",
-   "called": true,
-   "winner": "Byron Donalds",
-   "winnerParty": "R",
-   "calledBy": "AP"
+   "called": false
   },
   "GA": {
    "party": "D",
    "chance": "62%",
-   "called": true,
-   "winner": "Keisha Lance Bottoms",
-   "winnerParty": "D",
-   "calledBy": "AP"
+   "called": false
   },
   "HI": {
    "party": "D",
@@ -424,10 +397,7 @@
   "NY": {
    "party": "D",
    "chance": "91%",
-   "called": true,
-   "winner": "Kathy Hochul",
-   "winnerParty": "D",
-   "calledBy": "AP"
+   "called": false
   },
   "NM": {
    "party": "D",
@@ -488,10 +458,7 @@
   "WY": {
    "party": "R",
    "chance": ">99%",
-   "called": true,
-   "winner": "Eric Barlow",
-   "winnerParty": "R",
-   "calledBy": "AP"
+   "called": false
   }
  },
  "sources": [
@@ -519,6 +486,5 @@
  "governorHoldover": {
   "D": 6,
   "R": 8
- },
- "checked": "2026-11-04T02:38:37Z"
+ }
 }

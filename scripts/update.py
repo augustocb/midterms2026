@@ -81,15 +81,20 @@ Responda no final com UM bloco ```json e nada depois dele, neste formato:
 {{"calls":[{{"office":"senate"|"governor","state":"XX","winner":"Nome","party":"D"|"R","calledBy":"AP","source":"https://..."}}],
  "retracted":[{{"office":"senate"|"governor","state":"XX","source":"https://..."}}],
  "checkedThroughET":"21:40"}}
-Liste em "calls" todas as projeções novas que encontrou (pode repetir as já marcadas)."""
+Liste em \"calls\" todas as projeções novas que encontrou (pode repetir as já marcadas). Cada item precisa do link (\"source\") da notícia que encontrou na busca; sem link, não inclua."""
 
 
 def run_model(data, key):
     resp = call_api(build_prompt(data), key)
     cand = (resp.get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in cand.get("content", {}).get("parts", []) if not p.get("thought"))
-    queries = cand.get("groundingMetadata", {}).get("webSearchQueries", [])
-    print(f"Buscas feitas: {len(queries)}")
+    gm = cand.get("groundingMetadata") or {}
+    queries = gm.get("webSearchQueries") or []
+    chunks = gm.get("groundingChunks") or []
+    print(f"Buscas feitas: {len(queries)} · fontes: {len(chunks)} · campos: {sorted(gm.keys())}")
+    if not queries and not chunks:
+        # sem busca no Google a resposta pode ter sido inventada: não aplicar nada
+        raise SystemExit("Gemini respondeu sem pesquisar; nenhuma mudança aplicada.")
     m = re.findall(r"```json\s*(\{.*?\})\s*```", text, re.S) or re.findall(r"(\{\s*\"calls\".*\})", text, re.S)
     if not m:
         raise SystemExit("Resposta sem bloco JSON:\n" + text[-2000:])
@@ -102,7 +107,8 @@ def merge(data, result):
         office, st = c.get("office"), (c.get("state") or "").upper()
         race = data.get(office, {}).get(st)
         party, winner, by = c.get("party"), (c.get("winner") or "").strip(), (c.get("calledBy") or "").strip()
-        if not race or party not in ("D", "R") or not winner or not any(o.lower() in by.lower() for o in OUTLETS):
+        src = (c.get("source") or "").strip()
+        if not race or party not in ("D", "R") or not winner or not src.startswith("http") or not any(o.lower() in by.lower() for o in OUTLETS):
             continue
         if race.get("called") and race.get("winnerParty") == party and race.get("winner") == winner:
             continue
