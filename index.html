@@ -92,6 +92,7 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 table{table-layout:fixed}
 th:first-child,td:first-child{width:27%}
 td{overflow-wrap:break-word}
+.st-ab{display:none}
 td:first-child{hyphens:auto;-webkit-hyphens:auto}
 .nm{display:inline-flex;align-items:baseline;gap:5px}
 .favline{flex-basis:100%;display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500;margin:1px 0}
@@ -108,7 +109,9 @@ td:first-child{hyphens:auto;-webkit-hyphens:auto}
   td .pill .nm{white-space:nowrap}
   td .pill .tag{display:inline-block;margin:3px 4px 0 0}
   td .pill .nm+.tag{margin-left:2px}
-  th:first-child,td:first-child{width:24%}
+  th:first-child,td:first-child{width:13%}
+  .st-full{display:none}
+  .st-ab{display:inline;text-decoration:none;font-weight:600}
 }
 .dot.soft.D{background:var(--d-soft)}.dot.soft.R{background:var(--r-soft)}
 .nm .pct{font-weight:500;color:var(--muted)}
@@ -183,7 +186,7 @@ tbody tr:hover td{background:var(--hover)}
     <button data-f="open">Em aberto</button>
   </div>
   <table>
-    <thead><tr><th>Estado</th><th>Senado</th><th>Governador</th></tr></thead>
+    <thead><tr><th><span class="st-full">Estado</span><abbr class="st-ab" title="Estado">Est.</abbr></th><th>Senado</th><th>Governador</th></tr></thead>
     <tbody id="rows"></tbody>
   </table>
 
@@ -267,12 +270,13 @@ function render(){
   showPop();
 
   const tb=document.getElementById("rows");tb.replaceChildren();
-  const codes=Object.keys(DATA.states).filter(c=>S[c]||G[c]).sort((a,b)=>DATA.states[a].localeCompare(DATA.states[b],"pt"));
+  const narrow=matchMedia("(max-width:600px)").matches;
+  const codes=Object.keys(DATA.states).filter(c=>S[c]||G[c]).sort((a,b)=>narrow?a.localeCompare(b):DATA.states[a].localeCompare(DATA.states[b],"pt"));
   for(const code of codes){
     const rs=[S[code],G[code]].filter(Boolean);
     if(filter==="called"&&!rs.some(r=>r.called))continue;
     if(filter==="open"&&!rs.some(r=>!r.called))continue;
-    const tr=el("tr");tr.append(el("td",null,DATA.states[code]));
+    const tr=el("tr");{const td=el("td");const a=el("abbr","st-ab",code);a.title=DATA.states[code];td.append(el("span","st-full",DATA.states[code]),a);tr.append(td)}
     for(const r of [S[code],G[code]]){const td=el("td");if(r)td.append(describe(r,true));else{td.textContent="—";td.style.color="var(--muted)"}tr.append(td)}
     tb.append(tr);
   }
@@ -303,6 +307,7 @@ function showPop(){
 document.addEventListener("click",e=>{if(sel&&!e.target.closest("#pop")){sel=null;render()}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sel){sel=null;render()}});
 window.addEventListener("resize",()=>{if(sel)showPop()});
+matchMedia("(max-width:600px)").addEventListener("change",()=>render());
 
 let tipSeg=null;
 function showTip(sp){
