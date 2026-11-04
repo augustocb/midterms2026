@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T06:45:13Z",
+ "updated": "2026-11-04T06:45:53Z",
  "statusNote": "Projeções conferidas até 01:44 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
@@ -241,8 +241,11 @@
   "MT": {
    "party": "R",
    "chance": "77%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "Kurt Alme",
+   "winnerParty": "R",
+   "calledBy": "NBC"
   },
   "NE": {
    "party": "R",
@@ -699,5 +702,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T06:45:13Z"
+ "checked": "2026-11-04T06:45:53Z"
 }
