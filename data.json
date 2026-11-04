@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T03:13:28Z",
- "statusNote": "Projeções conferidas até 22:12 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T03:31:38Z",
+ "statusNote": "Projeções conferidas até 22:29 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -289,8 +289,11 @@
   "TX": {
    "party": "D",
    "chance": "62%",
-   "called": false,
-   "holder": "R"
+   "called": true,
+   "holder": "R",
+   "winner": "James Talarico",
+   "winnerParty": "D",
+   "calledBy": "Decision Desk HQ"
   },
   "VA": {
    "party": "D",
@@ -597,5 +600,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T03:13:28Z"
+ "checked": "2026-11-04T03:31:38Z"
 }
