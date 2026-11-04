@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T05:12:55Z",
- "statusNote": "Projeções conferidas até 00:12 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
+ "updated": "2026-11-04T05:21:47Z",
+ "statusNote": "Projeções conferidas até 00:21 (horário do leste dos EUA). Disputas sem projeção mostram a previsão do Decision Desk HQ de antes da apuração.",
  "senateHoldover": {
   "D": 34,
   "R": 31
@@ -217,8 +217,11 @@
   "MN": {
    "party": "D",
    "chance": "85%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Peggy Flanagan",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "MS": {
    "party": "R",
@@ -522,8 +525,11 @@
   "MN": {
    "party": "D",
    "chance": "91%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Amy Klobuchar",
+   "winnerParty": "D",
+   "calledBy": "AP"
   },
   "NE": {
    "party": "R",
@@ -582,8 +588,11 @@
   "OR": {
    "party": "D",
    "chance": "81%",
-   "called": false,
-   "holder": "D"
+   "called": true,
+   "holder": "D",
+   "winner": "Tina Kotek",
+   "winnerParty": "D",
+   "calledBy": "Decision Desk HQ"
   },
   "PA": {
    "party": "D",
@@ -669,5 +678,5 @@
   "D": 6,
   "R": 8
  },
- "checked": "2026-11-04T05:12:55Z"
+ "checked": "2026-11-04T05:21:47Z"
 }
