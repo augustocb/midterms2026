@@ -10,6 +10,7 @@ import sys
 UTC = dt.timezone.utc
 # (até quando, intervalo em minutos)
 AGENDA = [
+    (dt.datetime(2026, 11, 4, 6, 0, tzinfo=UTC), 10),   # até 03h de Brasília
     (dt.datetime(2026, 11, 4, 9, 0, tzinfo=UTC), 15),   # até 06h de Brasília
     (dt.datetime(2026, 11, 4, 15, 0, tzinfo=UTC), 10),  # até 12h de Brasília
     (dt.datetime(2026, 11, 4, 23, 0, tzinfo=UTC), 30),  # até 20h de Brasília
