@@ -9,7 +9,7 @@
 <style>
 :root{
   --bg:#f7f6f2;--panel:#fff;--fg:#1b1b1f;--muted:#6b6b73;--line:#e4e2dc;
-  --d:#2563c9;--d-soft:#c9d9f4;--d-dark:#173f86;--r:#d0402f;--r-soft:#f5cfc8;--r-dark:#8c261b;--on-soft:#1b1b1f;--none:#ebe9e3;--hover:#f4f3ef;
+  --d:#2563c9;--d-soft:#c9d9f4;--d-dark:#173f86;--r:#d0402f;--r-soft:#f5cfc8;--r-dark:#8c261b;--on-soft:#1b1b1f;--flip:#e2a100;--none:#ebe9e3;--hover:#f4f3ef;
 }
 @media (prefers-color-scheme:dark){
   :root{--bg:#141417;--panel:#1d1d22;--fg:#ececf0;--muted:#9a9aa5;--line:#2c2c33;
@@ -62,6 +62,10 @@ h1{font:600 clamp(22px,4.6vw,32px)/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
 .t .h{flex:1;display:flex;align-items:center;justify-content:center;font-weight:600;line-height:1}
 .t .h.D1,.t .h.R1{color:#fff}.t .h.D0,.t .h.R0{color:var(--on-soft)}
 .t .h+.h{border-top:1.5px solid var(--panel)}
+.t .h{position:relative}
+.t .h.fl::after{content:"";position:absolute;top:0;right:0;border-style:solid;border-width:0 9px 9px 0;border-color:transparent var(--flip) transparent transparent}
+.tag.flip{background:var(--flip);color:#1b1b1f}
+.leg-flip{display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-2px;background:linear-gradient(225deg,var(--flip) 50%,var(--none) 50%);border-radius:3px}
 .t .h+.h{border-top:1.5px solid var(--panel)}
 .D1{background:var(--d)}.R1{background:var(--r)}.D0{background:var(--d-soft)}.R0{background:var(--r-soft)}.N{background:var(--none)}
 .t.sel{outline:2px solid var(--fg);outline-offset:1px;z-index:1;overflow:visible}
@@ -131,6 +135,7 @@ tbody tr:hover td{background:var(--hover)}
       <span><b style="background:var(--d-soft)"></b>DEM favorito</span>
       <span><b style="background:var(--r-soft)"></b>REP favorito</span>
       <span><b style="background:var(--none)"></b>Sem eleição</span>
+      <span><i class="leg-flip"></i>Flip (projetado ≠ favorito)</span>
     </div>
     <div class="key"><div class="mini"><span>S</span><span>G</span></div>✓ = projetado · número = % de chance do favorito</div>
     <div class="grid" id="grid"></div>
@@ -175,6 +180,7 @@ function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className
 function fmtTime(iso){try{return new Date(iso).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"})}catch(e){return iso}}
 function tally(races){const c={D:0,R:0},f={D:0,R:0};for(const k in races){const r=races[k];if(r.called)c[r.winnerParty]++;else f[r.party]++}return {c,f}}
 function val(r){return !r?"":r.called?"✓":r.chance.replace("%","")}
+function isFlip(r){return !!(r&&r.called&&r.winnerParty!==r.party)}
 function cls(r){return !r?"N":r.called?r.winnerParty+"1":r.party+"0"}
 
 function side(name,n,fav,al){
@@ -223,7 +229,7 @@ function render(){
   const grid=document.getElementById("grid");grid.replaceChildren();
   for(const code in TILES){
     const [r,col]=TILES[code];const t=el("div","t");t.style.gridRow=r+1;t.style.gridColumn=col+1;
-    t.append(el("div","code",code),el("div","h "+cls(S[code]),val(S[code])),el("div","h "+cls(G[code]),val(G[code])));
+    t.append(el("div","code",code),el("div","h "+cls(S[code])+(isFlip(S[code])?" fl":""),val(S[code])),el("div","h "+cls(G[code])+(isFlip(G[code])?" fl":""),val(G[code])));
     if(sel===code)t.classList.add("sel");
     t.dataset.code=code;
     t.addEventListener("click",e=>{e.stopPropagation();sel=(sel===code?null:code);render()});
@@ -289,6 +295,7 @@ function describe(r,compact){
   if(compact&&!r.called){nm.append(el("span","dot "+p),el("span","pct",r.chance));w.append(nm);return w}
   nm.append(el("span","dot "+p),el("span",null,r.called?r.winner+" ("+PARTY[p]+")":PARTY[p]));
   w.append(nm,r.called?el("span","tag ok","✓ Projetado · "+r.calledBy):el("span","tag","Favorito · "+r.chance));
+  if(isFlip(r)){const t=el("span","tag flip","Flip");t.title="Projetado diferente do favorito ("+PARTY[r.party]+" "+r.chance+")";w.append(t)}
   return w;
 }
 
